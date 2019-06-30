@@ -1,0 +1,23 @@
+<table>
+    <thead>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Details</th>
+        <th>Date</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let test of tests">
+            <td>{{test.id}}</td>
+            <td>{{test.name}}</td>
+            <td>{{test.details}}</td>
+            <td>{{test.date}}</td>
+            <td>
+                <button (click)="delete(test)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<br>
+
+<label>Name </label>
+<button (click)="create()">create</button>  
