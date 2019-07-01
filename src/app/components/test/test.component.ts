@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TestService } from '../services/test.service';
-import { TestModel } from '../models/testmodel';
+import { TestModel } from 'src/app/models/testmodel';
+import { TestService } from 'src/app/services/test.service';
 
 @Component({
   selector: 'app-test',
@@ -22,7 +22,11 @@ export class TestComponent implements OnInit {
             ...e.payload.doc.data()
           } as TestModel;
         });
-        console.log(this.tests);
+        this.tests.sort((a,b) => {
+          var datea = new Date(a.date);
+          var dateb = new Date(b.date);
+          return (datea > dateb) ? 1 : -1;
+        })
       }
     );
   }
