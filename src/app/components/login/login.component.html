@@ -1,0 +1,16 @@
+<div class="login">
+    <h1>tutora</h1>
+
+    <table>
+        <tr>
+            <td><label>Username: </label></td>
+            <td><input type="text" #username></td>
+        </tr>
+        <tr>
+            <td><label>Password: </label></td>
+            <td><input type="password" #password></td>
+        </tr>
+    </table>
+
+    <button (click)="login(username.value, password.value)">Login</button>
+</div>
