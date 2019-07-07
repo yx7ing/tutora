@@ -1,0 +1,13 @@
+<div class="register">
+    <div class="container">
+        <img src="./././assets/logo.png" alt="logo" class="logo">
+        <input type="text" class="register-input" #email placeholder="Email"
+            [ngClass]="registerEmailStatus=='failed' ? 'register-input-email-failed' : ''"
+            (keyup.enter)="register(email.value, password.value)">
+        <input type="password" class="register-input" #password placeholder="Password"
+            [ngClass]="registerPasswordStatus=='failed' ? 'register-input-password-failed' : ''"
+            (keyup.enter)="register(email.value, password.value)">
+        <button class="btn-register" (click)="register(email.value, password.value)">REGISTER</button>
+        <div class="register-action" routerLink="/login">ALREADY HAVE AN ACCOUNT?</div>
+    </div>
+</div>

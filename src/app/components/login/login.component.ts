@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseService } from 'src/app/services/firebase.service';
-import { DocumentChangeAction } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/auth.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -11,20 +11,32 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   account: Account;
+  loginStatus: string = "";
 
-  constructor(private fbSrv: FirebaseService, private router: Router) { }
+  constructor(
+    private authSrv: AuthService,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit() {
   }
 
 
-  login(username:string, password: string) {
-    this.fbSrv.login(username, password).subscribe(res => {
-      if (res.length > 0) {
-        this.router.navigate(['/a-home'])
-      } else {
-        console.log("incorrect username or password")
+  login(email:string, password: string) {
+    this.authSrv.login(email, password)
+    .then(
+      res => {
+        this.router.navigate(['/a-home']);
+      }, 
+      error => {
+        this.loginStatus = "failed";
+        this.snackBar.open('Incorrect username or password', '', {
+          verticalPosition: 'top',
+          panelClass: 'snackbar-red',
+          duration: 1500
+        })
       }
-    });
+    );
   }
 }
