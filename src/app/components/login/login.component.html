@@ -1,16 +1,14 @@
 <div class="login">
-    <h1>tutora</h1>
-
-    <table>
-        <tr>
-            <td><label>Username: </label></td>
-            <td><input type="text" #username></td>
-        </tr>
-        <tr>
-            <td><label>Password: </label></td>
-            <td><input type="password" #password></td>
-        </tr>
-    </table>
-
-    <button (click)="login(username.value, password.value)">Login</button>
+    <div class="container">
+        <img src="./././assets/logo.png" alt="logo" class="logo">
+        <input type="text" class="login-input" #email placeholder="Email"
+            [ngClass]="loginStatus=='failed' ? 'login-input-failed' : ''"
+            (keyup.enter)="login(email.value, password.value)">
+        <input type="password" class="login-input" #password placeholder="Password"
+            [ngClass]="loginStatus=='failed' ? 'login-input-failed' : ''"
+            (keyup.enter)="login(email.value, password.value)">
+        <button class="btn-login" (click)="login(email.value, password.value)">SIGN IN</button>
+        <div class="login-action-1" tabindex=0>FORGOT PASSWORD?</div>
+        <div class="login-action-2" routerLink="/register">SIGN UP</div>
+    </div>
 </div>

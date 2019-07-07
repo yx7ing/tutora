@@ -5,4 +5,13 @@ html, body {
     height: 100%;
     width: 100%;
     padding: 0;
+    font-family: "Arial";
+}
+
+.snackbar-red {
+    color: white;
+    background-color: rgb(255, 100, 100);
+}
+.snackbar-red .mat-simple-snackbar {
+    justify-content: center;
 }
