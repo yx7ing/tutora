@@ -25,6 +25,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { UserService } from './core/user.service';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -38,7 +39,8 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    AdminHomeComponent
+    AdminHomeComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
