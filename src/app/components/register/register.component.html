@@ -1,6 +1,6 @@
 <div class="register">
     <div class="container">
-        <img src="./././assets/logo.png" alt="logo" class="logo">
+        <div class="logo">Tutora</div>
         <input type="text" class="register-input" #email placeholder="Email"
             [ngClass]="registerEmailStatus=='failed' ? 'register-input-email-failed' : ''"
             (keyup.enter)="register(email.value, password.value)">

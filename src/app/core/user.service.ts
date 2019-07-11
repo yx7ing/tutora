@@ -9,9 +9,7 @@ export class UserService {
   constructor(
    public db: AngularFirestore,
    public afAuth: AngularFireAuth
- ){
- }
-
+  ){ }
 
   getCurrentUser(){
     return new Promise<any>((resolve, reject) => {

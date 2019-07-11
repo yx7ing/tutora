@@ -1,6 +1,6 @@
 <div class="login">
     <div class="container">
-        <img src="./././assets/logo.png" alt="logo" class="logo">
+        <div class="logo">Tutora</div>
         <input type="text" class="login-input" #email placeholder="Email"
             [ngClass]="loginStatus=='failed' ? 'login-input-failed' : ''"
             (keyup.enter)="login(email.value, password.value)">

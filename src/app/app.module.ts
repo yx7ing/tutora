@@ -2,6 +2,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 // angularfire
 import { AngularFireModule } from '@angular/fire';
@@ -12,6 +14,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 // angular material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 // app files
 import { environment } from '../environments/environment';
@@ -20,18 +24,43 @@ import { AppComponent } from './app.component';
 import { FirebaseService } from './services/firebase.service';
 import { AuthService } from './core/auth.service';
 import { AuthGuard } from './core/auth.guard';
+import { UserService } from './core/user.service';
 
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { AdminHomeComponent } from './components/admin-home/admin-home.component';
-import { UserService } from './core/user.service';
+import { AdminHomeComponent } from './components/app-components-admin/admin-home/admin-home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { AdminComponent } from './components/app-components-admin/admin/admin.component';
+import { LecturerComponent } from './components/app-components-lecturer/lecturer/lecturer.component';
+import { TutorComponent } from './components/app-components-tutor/tutor/tutor.component';
+import { LecturerHomeComponent } from './components/app-components-lecturer/lecturer-home/lecturer-home.component';
+import { TutorHomeComponent } from './components/app-components-tutor/tutor-home/tutor-home.component';
+import { LoginRedirectComponent } from './components/login-redirect/login-redirect.component';
+import { AdminCreateLecturerComponent } from './components/app-components-admin/admin-create-lecturer/admin-create-lecturer.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent, canActivate: [AuthGuard]},
   {path: 'register', component: RegisterComponent, canActivate: [AuthGuard]},
-  {path: 'a-home', component: AdminHomeComponent},
+  {path: '_', component: LoginRedirectComponent},
+  {path: 'midna', component: AdminComponent,
+   children: [
+      {path: '', redirectTo: 'home', pathMatch: 'full'},
+      {path: 'home', component: AdminHomeComponent}
+   ]
+  },
+  {path: 'crelture', component: LecturerComponent,
+   children: [
+      {path: '', redirectTo: 'home', pathMatch: 'full'},
+      {path: 'home', component: LecturerHomeComponent}
+   ]
+  },
+  {path: 'trout', component: TutorComponent,
+   children: [
+      {path: '', redirectTo: 'home', pathMatch: 'full'},
+      {path: 'home', component: TutorHomeComponent}
+   ]
+  }
 ]
 
 @NgModule({
@@ -40,18 +69,29 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     AdminHomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    AdminComponent,
+    LecturerComponent,
+    TutorComponent,
+    LecturerHomeComponent,
+    TutorHomeComponent,
+    LoginRedirectComponent,
+    AdminCreateLecturerComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes, {useHash: false}),
+    HttpClientModule,
+    FormsModule,
 
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
 
     BrowserAnimationsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule,
+    MatSelectModule
   ],
   providers: [
     AngularFirestore,
@@ -59,6 +99,9 @@ const appRoutes: Routes = [
     AuthService,
     AuthGuard,
     UserService
+  ],
+  entryComponents: [
+    AdminCreateLecturerComponent
   ],
   bootstrap: [AppComponent]
 })

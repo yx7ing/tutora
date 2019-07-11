@@ -5,13 +5,19 @@ html, body {
     height: 100%;
     width: 100%;
     padding: 0;
-    font-family: "Arial";
+    font-family: 'Open Sans', sans-serif;
 }
 
 .snackbar-red {
     color: white;
     background-color: rgb(255, 100, 100);
 }
-.snackbar-red .mat-simple-snackbar {
+
+.snackbar-green {
+    color: white;
+    background-color: rgb(100, 190, 100);
+}
+
+.snackbar-red, .snackbar-green .mat-simple-snackbar {
     justify-content: center;
 }

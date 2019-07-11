@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     this.authSrv.login(email, password)
     .then(
       res => {
-        this.router.navigate(['/a-home']);
+        this.router.navigate(['/_']);
       }, 
       error => {
         this.loginStatus = "failed";
