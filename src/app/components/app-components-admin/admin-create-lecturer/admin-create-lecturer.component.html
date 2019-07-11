@@ -1,0 +1,56 @@
+<div class="admin-create-lecturer">
+    <div *ngIf="createStep==1">
+        Create lecturer account<br>
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td><input type="text" class="create-lecturer-input" [ngClass]="nameStatus ? '' : 'create-lecturer-input-failed'" #name></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><input type="text" class="create-lecturer-input" [ngClass]="emailStatus ? '' : 'create-lecturer-input-failed'" #email></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="text" class="create-lecturer-input" [ngClass]="passwordStatus ? '' : 'create-lecturer-input-failed'" #password></td>
+            </tr>
+        </table>
+        <button (click)="submitStep1(name.value, email.value, password.value)">Next</button>
+    </div>
+    <div *ngIf="createStep==2">
+        Create lecturer account<br>
+        Search for courses to assign to {{name}}<br><br>
+        Search by faculty code: <input type="text" placeholder="e.g. ACCT, INFS, PSYC" #faculty><br>
+        Select term: <mat-select [(value)]="term" placeholder="Please select a term">
+            <mat-option value="U1">Summer</mat-option>
+            <mat-option value="T1">Term 1</mat-option>
+            <mat-option value="T2">Term 2</mat-option>
+            <mat-option value="T3">Term 3</mat-option>
+        </mat-select><br>
+        <button (click)="searchCourses(faculty.value)">Search</button><br><br>
+        Results (Course list retrieved from <a href="http://classutil.unsw.edu.au/">http://classutil.unsw.edu.au/</a>):
+        <div *ngIf="courses.length>0">
+            <table>
+                <tr *ngFor="let course of courses; let i = index;">
+                    <td>{{course}}</td>
+                    <td><input type="checkbox" [(ngModel)]="courseChecks[i]"></td>
+                </tr>
+            </table>
+        </div><br><br>
+        <button (click)="createStep=1">Back</button><br>
+        <button (click)="step3()">Next</button>
+    </div>
+    <div *ngIf="createStep==3">
+        Create lecturer account<br>
+        Are you sure you want to create this account?<br>
+        Name: {{name}}<br>
+        Email: {{email}}<br>
+        Password: {{password}}<br>
+        Courses:
+        <div *ngFor="let course of selectedCourses">
+            {{course}}
+        </div>
+        <button (click)="createStep=2">Back</button><br>
+        <button (click)="createLecturer()" mat-dialog-close>Next</button>
+    </div>
+</div>

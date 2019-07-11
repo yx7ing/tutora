@@ -1,0 +1,11 @@
+.admin-create-lecturer {
+
+}
+
+.admin-create-lecturer .create-lecturer-input {
+
+}
+
+.admin-create-lecturer .create-lecturer-input-failed {
+    box-shadow: 0 0 0 2pt rgb(255, 100, 100) !important;
+}

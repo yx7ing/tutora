@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -23,37 +25,24 @@ export class RegisterComponent implements OnInit {
   register(email:string, password: string) {
     this.registerEmailStatus = '';
     this.registerPasswordStatus = '';
-    this.authService.register(email, password)
+    this.authService.register(email, password, 'tutor')
     .then(
       res => {
-        console.log(res);
-        console.log('registered');
+        this.router.navigate(['/login']);
       },
       err => {
-        var error: string;
         switch (err.code) {
           case "auth/email-already-in-use":
-            error = "Email already registered, please sign in or enter a different email.";
             this.registerEmailStatus = 'failed';
             break;
           case "auth/invalid-email":
-            error = "Invalid email. Please enter a valid email address."
             this.registerEmailStatus = 'failed';
             break;
           case "auth/weak-password":
-            error = "Password must be at least 6 characters."
             this.registerPasswordStatus = 'failed';
             break;
-          default:
-            error = "Unknown error. Please contact support."
-            break;
         }
-        this.snackBar.open(error, '', {
-          verticalPosition: 'top',
-          panelClass: 'snackbar-red',
-          duration: 2500
-        })
       }
-    )
+    );
   }
 }

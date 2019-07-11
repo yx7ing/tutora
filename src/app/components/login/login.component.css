@@ -11,7 +11,10 @@
 }
 
 .login .logo {
-    margin-top: 80px;
+    padding-top: 80px;
+    font-size: 90px;
+    font-family: 'Pacifico', 'cursive';
+    color: white;
 }
 
 .login .login-input {

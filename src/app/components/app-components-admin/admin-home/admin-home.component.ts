@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/auth.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { AdminCreateLecturerComponent } from '../admin-create-lecturer/admin-create-lecturer.component';
+import { ClassUtilService } from 'src/app/services/class-util.service';
 
 @Component({
   selector: 'app-admin-home',
@@ -9,9 +12,10 @@ import { Router } from '@angular/router';
 })
 export class AdminHomeComponent implements OnInit {
 
-  constructor(private authSrv: AuthService, private router: Router) { }
+  constructor(private authSrv: AuthService, private router: Router, private dialog: MatDialog, private cuSrv: ClassUtilService) { }
 
   ngOnInit() {
+    // this.cuSrv.searchClassUtil();
   }
 
   logout() {
@@ -26,5 +30,10 @@ export class AdminHomeComponent implements OnInit {
     );
   }
 
-  
+  openCreateLecturerDialog() {
+    const dialogRef = this.dialog.open(AdminCreateLecturerComponent, {
+      width: '50vw',
+      height: '50vh'
+    })
+  }  
 }

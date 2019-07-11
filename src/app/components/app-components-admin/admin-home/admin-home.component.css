@@ -1,0 +1,21 @@
+.admin-home {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    z-index: 0;
+    background-color: rgb(154, 212, 203);
+    padding-top: 50px;
+}
+
+.admin-home .container {
+    padding: 40px 60px;
+}
+
+.admin-home .header {
+    font-family: 'Staatliches', cursive;
+    font-size: 50px;
+    color: white;
+    width: 100%;
+    border-bottom: 2px solid rgb(178, 226, 219);
+}

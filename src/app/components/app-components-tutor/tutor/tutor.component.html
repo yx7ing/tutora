@@ -1,0 +1,8 @@
+<div *ngIf="currentUser.type == 'tutor'">
+    <app-navbar></app-navbar>
+    <router-outlet></router-outlet>
+</div>
+<div *ngIf="currentUser.type != 'tutor'">
+    You are not authorised to view this page. Please <a href="" (click)="logout()">log in</a> with an authorised account or
+    <a href="" (click)="returnHome()">return to your home page</a>.
+</div>
