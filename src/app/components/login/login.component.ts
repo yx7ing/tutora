@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
       }, 
       error => {
         this.loginStatus = "failed";
-        this.snackBar.open('Incorrect username or password', '', {
+        this.snackBar.open('Incorrect username or password.', '', {
           verticalPosition: 'top',
           panelClass: 'snackbar-red',
           duration: 1500

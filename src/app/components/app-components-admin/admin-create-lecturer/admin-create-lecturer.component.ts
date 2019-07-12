@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ClassUtilService } from 'src/app/services/class-util.service';
 import { AuthService } from 'src/app/core/auth.service';
+import { User } from '../../../models/user';
 
 @Component({
   selector: 'app-admin-create-lecturer',
@@ -9,6 +10,8 @@ import { AuthService } from 'src/app/core/auth.service';
   styleUrls: ['./admin-create-lecturer.component.css']
 })
 export class AdminCreateLecturerComponent implements OnInit {
+
+  currentUser: User;
 
   createStep = 1;
   name: string;
@@ -27,6 +30,11 @@ export class AdminCreateLecturerComponent implements OnInit {
   constructor(private snackBar: MatSnackBar, private cuSrv: ClassUtilService, private authSrv: AuthService) { }
 
   ngOnInit() {
+    this.authSrv.getCurrentUser().subscribe(
+      response => {
+        this.currentUser = response;
+      }
+    )
   }
 
   submitStep1(name: string, email: string, password: string) {
@@ -97,7 +105,7 @@ export class AdminCreateLecturerComponent implements OnInit {
   }
 
   createLecturer() {
-    this.authSrv.register(this.email, this.password, 'lecturer', this.selectedCourses);
+    this.authSrv.register(this.email, this.name, this.password, 'lecturer', this.currentUser.email, this.selectedCourses);
   }
 
 }

@@ -20,6 +20,7 @@ export class LecturerHomeComponent implements OnInit {
       response => {
         this.fbSrv.getLinkedCourses(response.email).subscribe(
           response => {
+            this.courses = [];
             for (let item of response) {
               this.courses.push(item.payload.doc.data() as CourseLink);
             }
