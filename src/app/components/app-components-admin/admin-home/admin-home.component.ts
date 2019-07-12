@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AdminCreateLecturerComponent } from '../admin-create-lecturer/admin-create-lecturer.component';
 import { ClassUtilService } from 'src/app/services/class-util.service';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-admin-home',
@@ -12,10 +13,22 @@ import { ClassUtilService } from 'src/app/services/class-util.service';
 })
 export class AdminHomeComponent implements OnInit {
 
-  constructor(private authSrv: AuthService, private router: Router, private dialog: MatDialog, private cuSrv: ClassUtilService) { }
+  lecturers: any[];
+
+  constructor(private authSrv: AuthService, private router: Router, private dialog: MatDialog, private fbSrv: FirebaseService) { }
 
   ngOnInit() {
-    // this.cuSrv.searchClassUtil();
+    this.authSrv.getCurrentUser().subscribe(
+      response => {
+        this.fbSrv.searchLecturers(response.email);
+      }
+    )
+
+    this.fbSrv.getLecturers().subscribe(
+      response => {
+        this.lecturers = response;
+      }
+    )
   }
 
   logout() {

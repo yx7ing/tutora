@@ -26,15 +26,26 @@
     display: flex;
 }
 
-.navbar .navigation-dp {
-    display: inline-block;
+.navbar .navigation-item-profile {
     height: 50px;
+}
+.navbar .navigation-item-profile:hover {
+    background-color: rgb(110, 223, 207);
+}
+
+.navbar .navigation-dp {
+    padding: 5px 5px 0 10px;
 }
 
 .navbar .dp {
     height: 30px;
     width: 30px;
-    margin: 10px 0;
+}
+
+.navbar .navigation-name {
+    font-size: 16px;
+    color: white;
+    padding-right: 10px;
 }
 
 .navbar .navigation-item {

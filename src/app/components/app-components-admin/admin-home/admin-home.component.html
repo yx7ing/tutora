@@ -3,6 +3,11 @@
         <div class="header">
             My Lecturers
         </div>
+        <div *ngFor="let lecturer of lecturers">
+            <div *ngFor="let data of lecturer">
+                {{data | json}}
+            </div>
+        </div>
         <button (click)="openCreateLecturerDialog()">add lecturer</button>
     </div>
     admin login successful

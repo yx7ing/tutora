@@ -21,6 +21,7 @@ export class AdminComponent implements OnInit {
         if (!this.currentUser) {
           this.currentUser = {
             email: "",
+            name: "",
             type: ""
           };
         }

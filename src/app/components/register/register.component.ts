@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
+  registerStep = 2;
+
   registerEmailStatus: string = '';
   registerPasswordStatus: string = '';
 
@@ -22,10 +24,10 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  register(email:string, password: string) {
+  register(email:string, name: string, password: string) {
     this.registerEmailStatus = '';
     this.registerPasswordStatus = '';
-    this.authService.register(email, password, 'tutor')
+    this.authService.register(email, name, password, 'tutor')
     .then(
       res => {
         this.router.navigate(['/login']);

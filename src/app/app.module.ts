@@ -10,6 +10,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 // angular material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -37,6 +38,8 @@ import { LecturerHomeComponent } from './components/app-components-lecturer/lect
 import { TutorHomeComponent } from './components/app-components-tutor/tutor-home/tutor-home.component';
 import { LoginRedirectComponent } from './components/login-redirect/login-redirect.component';
 import { AdminCreateLecturerComponent } from './components/app-components-admin/admin-create-lecturer/admin-create-lecturer.component';
+import { DropZoneDirective } from './directives/drop-zone.directive';
+import { UploadComponent } from './components/upload/upload.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -76,7 +79,9 @@ const appRoutes: Routes = [
     LecturerHomeComponent,
     TutorHomeComponent,
     LoginRedirectComponent,
-    AdminCreateLecturerComponent
+    AdminCreateLecturerComponent,
+    DropZoneDirective,
+    UploadComponent
   ],
   imports: [
     BrowserModule,
@@ -95,6 +100,7 @@ const appRoutes: Routes = [
   ],
   providers: [
     AngularFirestore,
+    AngularFireStorage,
     FirebaseService,
     AuthService,
     AuthGuard,

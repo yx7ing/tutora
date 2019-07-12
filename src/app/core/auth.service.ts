@@ -24,7 +24,7 @@ export class AuthService {
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private fbSrv: FirebaseService, private snackBar: MatSnackBar) {
   }
 
-  register(email: string, password: string, type: string, courses?: string[]) {
+  register(email: string, name: string, password: string, type: string, admin?: string, courses?: string[]) {
     return new Promise<any>((resolve, reject) => {
       this.secondaryApp.auth().createUserWithEmailAndPassword(email, password).then(
         res => {
@@ -33,9 +33,9 @@ export class AuthService {
             panelClass: 'snackbar-green',
             duration: 2500
           });
-          this.fbSrv.register(email, type);
+          this.fbSrv.register(email, name, type);
           if (type == "lecturer") {
-            this.fbSrv.linkCourses(email, courses);
+            this.fbSrv.createLecturerProfile(email, admin, courses);
           }
           this.secondaryApp.auth().signOut();
           resolve(res);
@@ -90,6 +90,7 @@ export class AuthService {
 
   currentUser: BehaviorSubject<User> = new BehaviorSubject<User>({
     email: "",
+    name: "",
     type: ""
   });
   setCurrentUser(email: string) {
