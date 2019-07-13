@@ -140,6 +140,7 @@
 }
 .register-details .upload-column-1 {
     width: 20%;
+    border-right: 1px solid rgb(119, 234, 219);
 }
 .register-details .upload-column-2 {
     width: 80%;
@@ -151,7 +152,13 @@
     font-size: 20px;
     color: white;
     padding: 10px 0;
+    margin: 10px 0;
 }
 .register-details .add-te:hover {
     background-color: rgb(110, 223, 207);
+}
+
+.register-details .tutoring-experience {
+    margin: 10px 0;
+    border-bottom: 2px solid rgb(119, 234, 219);
 }
