@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators'
 import { AngularFirestore } from '@angular/fire/firestore';
+import { UploadDetailsService } from 'src/app/services/upload-details.service';
+import { Upload } from 'src/app/models/upload';
 
 @Component({
   selector: 'upload',
@@ -11,21 +13,22 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class UploadComponent {
 
-  // Main task 
+  @Input() uploadType: string;
+
   task: AngularFireUploadTask;
-
-  // Progress monitoring
   percentage: Observable<number>;
-
   snapshot: Observable<any>;
-
-  // Download URL
   downloadURL: Observable<string>;
-
-  // State for dropzone CSS toggling
   isHovering: boolean;
 
-  constructor(private storage: AngularFireStorage, private db: AngularFirestore) { }
+  showDropzone = true;
+  fileName: string;
+  stringyDownloadURL: string = ''
+
+  constructor(private storage: AngularFireStorage, private udSrv: UploadDetailsService) { }
+
+  ngOnInit() {
+  }
 
   
   toggleHover(event: boolean) {
@@ -34,33 +37,42 @@ export class UploadComponent {
 
 
   startUpload(event: FileList) {
-    // The File object
     const file = event.item(0)
-
-    // Client-side validation example
     if (file.type.split('/')[0] !== 'image') { 
       console.error('unsupported file type :( ')
       return;
     }
-
-    // The storage path
-    const path = `test/${new Date().getTime()}_${file.name}`;
-
-    // Totally optional metadata
-    const customMetadata = { app: 'My AngularFire-powered PWA!' };
-
-    // The main task
+    const path = `documents/${new Date().getTime()}_${file.name}`;
+    const customMetadata = { app: 'tutora' };
     this.task = this.storage.upload(path, file, { customMetadata })
+    
+    this.showDropzone = false;
+    this.fileName = file.name;
+    this.udSrv.newActiveUpload();
 
-    // Progress monitoring
     this.percentage = this.task.percentageChanges();
     this.snapshot   = this.task.snapshotChanges()
-
-    // The file's download URL
-    this.snapshot.pipe(finalize(() => this.downloadURL = this.storage.ref(path).getDownloadURL())).subscribe();
+    this.snapshot.pipe(
+      finalize(
+        () => {
+          this.downloadURL = this.storage.ref(path).getDownloadURL();
+          this.storage.ref(path).getDownloadURL().subscribe(
+            results => {
+              this.stringyDownloadURL = results;
+              var upload: Upload = {
+                type: this.uploadType,
+                fileName: this.fileName,
+                downloadUrl: this.stringyDownloadURL
+              }
+              this.udSrv.addUpload(upload);
+              this.udSrv.completeActiveUpload();
+            }
+          )
+        }
+      )
+    ).subscribe();
   }
 
-  // Determines if the upload task is active
   isActive(snapshot) {
     return snapshot.state === 'running' && snapshot.bytesTransferred < snapshot.totalBytes
   }

@@ -1,19 +1,28 @@
-.dropzone { 
+.upload .dropzone { 
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column; 
-    height: 300px;
+    text-align: center;
+    flex-direction: row; 
+    height: 80px;
     border: 2px dashed #f16624;
     border-radius: 5px;
-    background: white;
-    margin: 10px 0;
+    background: rgba(255, 255, 255, 0.5);
+    color: black;
 }
-.dropzone:hover {
+.upload .dropzone:hover {
     border: 2px solid #f16624;
-    color: #dadada !important;
+    opacity: 0.8;
 }
 
-progress::-webkit-progress-value {
+.upload .upload1, .upload2, .progress, .byte-progress {
+    display: inline;
+}
+
+.upload progress::-webkit-progress-value {
     transition: width 0.1s ease;
+}
+
+.upload .status {
+    color: white;
 }
