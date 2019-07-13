@@ -1,5 +1,5 @@
 <div class="register">
-    <div class="container" *ngIf="registerStep==1">
+    <div class="container">
         <div class="logo">Tutora</div>
         <input type="text" class="register-input" #name placeholder="Name"
             [ngClass]="registerNameStatus=='failed' ? 'register-input-failed' : ''"
@@ -12,46 +12,5 @@
             (keyup.enter)="register(email.value, name.value, password.value)">
         <button class="btn-register" (click)="register(email.value, name.value, password.value)">REGISTER</button>
         <div class="register-action" routerLink="/login">ALREADY HAVE AN ACCOUNT?</div>
-    </div>
-
-    <div class="container" *ngIf="registerStep==2">
-        <div class="logo">Tutora</div>
-        <div class="message">
-            Welcome to Tutora, soon-to-be tutor!<br><br>
-            You can fill out your personal and tutor<br>
-            details now, or later from your profile,<br>
-            but you will not be able to apply for<br>
-            tutor positions until you do so.<br>
-        </div>
-        <div class="btn-group">
-            <button class="btn-skip" routerLink="/login">DO IT LATER</button>
-            <button class="btn-continue" (click)="registerStep=3">DO IT NOW</button>
-        </div>
-    </div>
-
-    <div class="container" *ngIf="registerStep==3">
-        <div class="logo">Tutora</div>
-        <table class="detail-table">
-            <tr>
-                <td class="column-1" valign="top">
-                    <div class="detail-title">Personal Details</div>
-                    <input onfocus="(this.type='date')" class="register-input-2" placeholder="Date of birth">
-                    <input type="number" class="register-input-2" placeholder="Mobile">
-                    <input type="text" class="register-input-2" placeholder="Address">
-                    <div class="detail-title">Course Details</div>
-                    <input type="text" class="register-input-2" placeholder="Degree">
-                    <input type="number" class="register-input-2" placeholder="Expected year of completion">
-                    <input type="number" class="register-input-2" placeholder="UOC completed">
-                    <input type="number" class="register-input-2" placeholder="Weighted average mark (WAM)">
-                </td>
-                <td class="column-2" valign="top">
-                    <div class="detail-title">Tutor Details</div>
-                    <div class="tutor-detail-wrapper">
-                        <upload></upload>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <button class="btn-save" (click)="register(email.value, name.value, password.value)">SAVE DETAILS</button>
     </div>
 </div>

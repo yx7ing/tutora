@@ -40,11 +40,13 @@ import { LoginRedirectComponent } from './components/login-redirect/login-redire
 import { AdminCreateLecturerComponent } from './components/app-components-admin/admin-create-lecturer/admin-create-lecturer.component';
 import { DropZoneDirective } from './directives/drop-zone.directive';
 import { UploadComponent } from './components/upload/upload.component';
+import { RegisterDetailsComponent } from './components/register-details/register-details.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent, canActivate: [AuthGuard]},
   {path: 'register', component: RegisterComponent, canActivate: [AuthGuard]},
+  {path: 'register-details', component: RegisterDetailsComponent},
   {path: '_', component: LoginRedirectComponent},
   {path: 'midna', component: AdminComponent,
    children: [
@@ -81,7 +83,8 @@ const appRoutes: Routes = [
     LoginRedirectComponent,
     AdminCreateLecturerComponent,
     DropZoneDirective,
-    UploadComponent
+    UploadComponent,
+    RegisterDetailsComponent
   ],
   imports: [
     BrowserModule,
