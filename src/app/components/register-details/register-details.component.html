@@ -40,9 +40,21 @@
                         <br>
                         <div class="detail-subtitle">Tutoring Experience</div>
                         <span style="color:white">Please submit details of each course you have tutored in the past.</span>
-                        <div class="tutoring-experience" *ngFor="let i of tutExp">
-                            <upload uploadType="me"></upload>
-                        </div>
+                        <table class="tutoring-experience" *ngFor="let i of tutExp"> <tr>
+                                <td valign="top">
+                                    <input type="text" class="register-input-2" placeholder="Course Code">
+                                    <input type="text" class="register-input-2" placeholder="Course Name">
+                                    <input type="text" class="register-input-2" placeholder="Year/Terms taught (e.g. 2018T1, 2018T2)">
+                                    <input type="text" class="register-input-2" placeholder="LiC while tutoring">
+                                </td>
+                                <td valign="top">
+                                    <span style="color:white">
+                                        <br>Please upload MyExperience results (or equivalent documentation) 
+                                        for the most recent term taught.<br><br>
+                                    </span>
+                                    <upload uploadType="me"></upload>
+                                </td>
+                        </tr> </table>
                         <div class="add-te" (click)="tutExp.push(1)">+ Add course</div>
                     </div>
                 </td>
