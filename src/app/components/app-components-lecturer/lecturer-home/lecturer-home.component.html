@@ -4,7 +4,7 @@
             My Courses
         </div>
         <table>
-            <tr *ngFor="let course of courses">
+            <tr *ngFor="let course of lecturer.courseLinks">
                 <td>{{course.course}}</td>
                 <td>{{course.courseName}}</td>
             </tr>
@@ -12,5 +12,4 @@
     </div>
     lecturer login successful
     <button (click)="logout()">Log out</button>
-    <upload></upload>
 </div>

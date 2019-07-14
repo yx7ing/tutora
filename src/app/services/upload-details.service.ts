@@ -7,16 +7,32 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class UploadDetailsService {
 
-  uploadDetails: Upload[] = [];
+  cvUploadDetails: Upload;
+  myExpUploadDetails: Upload[] = [];
 
   constructor() { }
 
-  addUpload(upload: Upload) {
-    this.uploadDetails.push(upload);
-    console.log(this.uploadDetails)
+  addMyExpUpload(upload: Upload) {
+    while (this.myExpUploadDetails.length < upload.id) {
+      this.myExpUploadDetails.push(null);
+    }
+    this.myExpUploadDetails[upload.id] = upload;
   }
-  getUploads() {
-    return this.uploadDetails;
+  removeMyExpUpload(i: number) {
+    if (i < this.myExpUploadDetails.length) {
+      this.myExpUploadDetails.splice(i, 1);
+    }
+  }
+  getMyExpUploads() {
+    return this.myExpUploadDetails;
+  }
+
+  addCVUpload(upload: Upload) {
+    this.cvUploadDetails = upload;
+    console.log(this.cvUploadDetails);
+  }
+  getCvUpload() {
+    return this.cvUploadDetails;
   }
 
   activeUploadsSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);

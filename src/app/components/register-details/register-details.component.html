@@ -20,14 +20,14 @@
             <tr>
                 <td class="column-1" valign="top">
                     <div class="detail-title">Personal Details</div>
-                    <input onfocus="(this.type='date')" class="register-input-2" placeholder="Date of birth">
-                    <input type="number" class="register-input-2" placeholder="Mobile">
-                    <input type="text" class="register-input-2" placeholder="Address">
+                    <input onfocus="(this.type='date')" class="register-input-2" placeholder="Date of birth" #dob>
+                    <input type="number" class="register-input-2" placeholder="Mobile" #mob>
+                    <input type="text" class="register-input-2" placeholder="Address" #add>
                     <div class="detail-title">Course Details</div>
-                    <input type="text" class="register-input-2" placeholder="Degree">
-                    <input type="number" class="register-input-2" placeholder="Expected year of completion">
-                    <input type="number" class="register-input-2" placeholder="UOC completed">
-                    <input type="number" class="register-input-2" placeholder="Weighted average mark (WAM)">
+                    <input type="text" class="register-input-2" placeholder="Degree" #deg>
+                    <input type="number" class="register-input-2" placeholder="Expected year of completion" #yoc>
+                    <input type="number" class="register-input-2" placeholder="UOC completed" #uoc>
+                    <input type="number" class="register-input-2" placeholder="Weighted average mark (WAM)" #wam>
                 </td>
                 <td class="column-2" valign="top">
                     <div class="detail-title">Tutor Details</div>
@@ -38,28 +38,36 @@
                             <td class="upload-column-2" valign="top"><upload uploadType="cv"></upload></td>
                         </tr> </table>
                         <br>
-                        <div class="detail-subtitle">Tutoring Experience</div>
-                        <span style="color:white">Please submit details of each course you have tutored in the past.</span>
-                        <table class="tutoring-experience" *ngFor="let i of tutExp"> <tr>
-                                <td valign="top">
-                                    <input type="text" class="register-input-2" placeholder="Course Code">
-                                    <input type="text" class="register-input-2" placeholder="Course Name">
-                                    <input type="text" class="register-input-2" placeholder="Year/Terms taught (e.g. 2018T1, 2018T2)">
-                                    <input type="text" class="register-input-2" placeholder="LiC while tutoring">
-                                </td>
-                                <td valign="top">
-                                    <span style="color:white">
-                                        <br>Please upload MyExperience results (or equivalent documentation) 
-                                        for the most recent term taught.<br><br>
-                                    </span>
-                                    <upload uploadType="me"></upload>
-                                </td>
+                        <div class="detail-subtitle">Tutoring Experience (optional)</div>
+                        <span style="color:white">Please submit details of each course you have tutored in the past.<br><br></span>
+                        <table class="tutoring-experience" *ngFor="let tutExp of tutExps; let i = index;"> <tr>
+                            <td valign="top">
+                                <input type="text" class="register-input-2" placeholder="Course Code" [(ngModel)]="tutExps[i].course">
+                                <input type="text" class="register-input-2" placeholder="Course Name" [(ngModel)]="tutExps[i].courseName">
+                                <input type="text" class="register-input-2" placeholder="Year/Terms taught (e.g. 2018T1, 2018T2)" [(ngModel)]="tutExps[i].taught">
+                                <input type="text" class="register-input-2" placeholder="LiC while tutoring" [(ngModel)]="tutExps[i].lic">
+                            </td>
+                            <td valign="top">
+                                <table class="right-column-table">
+                                    <tr><td>
+                                        <button class="btn-remove" (click)="removeRow(i)">x Remove row</button>
+                                    </td></tr>
+                                    <tr><td>
+                                        <span style="color:white">
+                                            <br><br>Please submit MyExperience results (or equivalent) 
+                                            for the most recent term taught.<br><br>
+                                        </span>
+                                        <upload uploadType="me" id={{i}}></upload>
+                                    </td></tr>
+                                </table>
+                            </td>
                         </tr> </table>
-                        <div class="add-te" (click)="tutExp.push(1)">+ Add course</div>
+                        <div class="add-te" (click)="addTutExp()">+ Add course</div>
                     </div>
                 </td>
             </tr>
         </table>
-        <button [ngClass]="activeUploads==0 ? 'btn-save' : 'btn-save-disabled'" (click)="register(email.value, name.value, password.value)">SAVE DETAILS</button>
+        <button [ngClass]="activeUploads==0 ? 'btn-save' : 'btn-save-disabled'" (click)="saveDetails(dob.value, mob.value, add.value, deg.value, yoc.value, uoc.value, wam.value)">SAVE DETAILS</button>
+        <br><button class="btn-skip-2" routerLink="">SKIP</button>
     </div>
 </div>
