@@ -101,11 +101,19 @@ export class AdminCreateLecturerComponent implements OnInit {
   
   step3() {
     this.setSelectedCourses();
-    this.createStep = 3;
+    if (this.selectedCourses.length == 0) {
+      this.snackBar.open('Please select at least one course.', '', {
+        verticalPosition: 'top',
+        panelClass: 'snackbar-red',
+        duration: 3000
+      })
+    } else {
+      this.createStep = 3;
+    }
   }
 
   createLecturer() {
-    this.authSrv.register(this.email, this.name, this.password, 'lecturer', this.currentUser.email, this.selectedCourses);
+    this.authSrv.registerLecturer(this.email, this.name, this.password, 'lecturer', this.currentUser.email, this.selectedCourses);
   }
 
 }

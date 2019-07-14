@@ -3,8 +3,9 @@ import { AuthService } from 'src/app/core/auth.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AdminCreateLecturerComponent } from '../admin-create-lecturer/admin-create-lecturer.component';
-import { ClassUtilService } from 'src/app/services/class-util.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { User } from 'src/app/models/user';
+import { UserLecturer } from 'src/app/models/userLecturer';
 
 @Component({
   selector: 'app-admin-home',
@@ -13,7 +14,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 })
 export class AdminHomeComponent implements OnInit {
 
-  lecturers: any[];
+  lecturers: UserLecturer[];
 
   constructor(private authSrv: AuthService, private router: Router, private dialog: MatDialog, private fbSrv: FirebaseService) { }
 

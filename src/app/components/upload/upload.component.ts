@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators'
-import { AngularFirestore } from '@angular/fire/firestore';
 import { UploadDetailsService } from 'src/app/services/upload-details.service';
 import { Upload } from 'src/app/models/upload';
 
@@ -14,6 +13,7 @@ import { Upload } from 'src/app/models/upload';
 export class UploadComponent {
 
   @Input() uploadType: string;
+  @Input() id: number;
 
   task: AngularFireUploadTask;
   percentage: Observable<number>;
@@ -57,14 +57,20 @@ export class UploadComponent {
         () => {
           this.downloadURL = this.storage.ref(path).getDownloadURL();
           this.storage.ref(path).getDownloadURL().subscribe(
-            results => {
-              this.stringyDownloadURL = results;
+            response => {
+              this.stringyDownloadURL = response;
               var upload: Upload = {
                 type: this.uploadType,
                 fileName: this.fileName,
                 downloadUrl: this.stringyDownloadURL
               }
-              this.udSrv.addUpload(upload);
+              if (this.id) {
+                upload.id = this.id;
+                this.udSrv.addMyExpUpload(upload);
+              } else {
+                this.udSrv.addCVUpload(upload);
+              }
+
               this.udSrv.completeActiveUpload();
             }
           )

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/auth.service';
 import { Router } from '@angular/router';
-import { CourseLink } from 'src/app/models/courseLink';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { UserLecturer } from 'src/app/models/userLecturer';
 
 @Component({
   selector: 'app-lecturer-home',
@@ -13,20 +13,23 @@ export class LecturerHomeComponent implements OnInit {
 
   constructor(private authSrv: AuthService, private router: Router, private fbSrv: FirebaseService) { }
 
-  courses: CourseLink[] = [];
+  lecturer: UserLecturer = {
+    email: "",
+    name: "",
+    admin: "",
+    courseLinks: []
+  };
 
   ngOnInit() {
     this.authSrv.getCurrentUser().subscribe(
       response => {
-        this.fbSrv.getLinkedCourses(response.email).subscribe(
-          response => {
-            this.courses = [];
-            for (let item of response) {
-              this.courses.push(item.payload.doc.data() as CourseLink);
-            }
-            console.log(this.courses);
-          }
-        )
+        this.authSrv.setCurrentLecturer(response.email);
+      }
+    )
+
+    this.authSrv.getCurrentLecturer().subscribe(
+      response => {
+        this.lecturer = response;
       }
     )
   }

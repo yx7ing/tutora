@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/auth.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,7 +14,6 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private snackBar: MatSnackBar,
     private router: Router
   ) { }
 
@@ -25,10 +23,10 @@ export class RegisterComponent implements OnInit {
   register(email:string, name: string, password: string) {
     this.registerEmailStatus = '';
     this.registerPasswordStatus = '';
-    this.authService.register(email, name, password, 'tutor')
+    this.authService.registerTutor(email, name, password, 'tutor')
     .then(
       res => {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/register-details']);
       },
       err => {
         switch (err.code) {
