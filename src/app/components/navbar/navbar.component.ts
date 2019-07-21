@@ -18,10 +18,16 @@ export class NavbarComponent implements OnInit {
     this.authSrv.getCurrentUser().subscribe(
       response => {
         this.user = response;
-        var firstName = response.name.match(/.+\s/)[0];
-        this.name = firstName.substr(0, firstName.length);
-        var lastName = response.name.match(/\s[^\s]+$/)[0];
-        this.name += lastName.substr(1, 1);
+        if (response.name.match(/.+\s/)) {
+          var firstName = response.name.match(/.+\s/)[0];
+          this.name = firstName.substr(0, firstName.length);
+          if (response.name.match(/\s[^\s]+$/)) {
+            var lastName = response.name.match(/\s[^\s]+$/)[0];
+            this.name += lastName.substr(1, 1);
+          }
+        } else {
+          this.name = response.name;
+        }
       }
     )
   }

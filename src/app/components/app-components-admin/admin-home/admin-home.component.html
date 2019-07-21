@@ -3,6 +3,28 @@
         <div class="header">
             My Lecturers
         </div>
+        <mat-form-field class="table-filter">
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search lecturers">
+        </mat-form-field>
+        <table class="content-table"> <tr>
+            <td class="lecturer-table">
+                <table mat-table [dataSource]="dataSource" class="table-actual">
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> Name </th>
+                        <td mat-cell *matCellDef="let lecturer"> {{lecturer.name}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="email">
+                        <th mat-header-cell *matHeaderCellDef> Email </th>
+                        <td mat-cell *matCellDef="let lecturer"> {{lecturer.email}} </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </td>
+            <td class="focus-window">
+
+            </td>
+        </tr> </table>
         <div *ngFor="let lecturer of lecturers">
             {{lecturer | json}}
         </div>

@@ -78,37 +78,37 @@ export class RegisterDetailsComponent implements OnInit {
             });
             return;
           }
-          var tutor: UserTutor = {
-            email: this.user.email,
-            name: this.user.name,
-            dob: dob,
-            mobile: mob,
-            address: add,
-            degree: deg,
-            yoc: yoc,
-            uoc: uoc,
-            wam: wam,
-            cv: this.cv,
-            tutorExperience: this.tutExps
-          }
-          this.fbSrv.createTutorProfile(tutor)
-          .then(
-            res => {
-              this.snackBar.open('Details saved. You are now ready to apply for positions.', '', {
-                verticalPosition: 'top',
-                panelClass: 'snackbar-green',
-                duration: 2500
-              });
-              this.router.navigate(['']);
-            }, err => {
-              this.snackBar.open('Something went wrong. Please try again, or skip to your homepage and contact support.', '', {
-                verticalPosition: 'top',
-                panelClass: 'snackbar-red',
-                duration: 2500
-              });
-            }
-          )
         }
+        var tutor: UserTutor = {
+          email: this.user.email,
+          name: this.user.name,
+          dob: dob,
+          mobile: mob,
+          address: add,
+          degree: deg,
+          yoc: yoc,
+          uoc: uoc,
+          wam: wam,
+          cv: this.cv,
+          tutorExperience: this.tutExps
+        }
+        this.fbSrv.createTutorProfile(tutor)
+        .then(
+          res => {
+            this.snackBar.open('Details saved. You are now ready to apply for positions.', '', {
+              verticalPosition: 'top',
+              panelClass: 'snackbar-green',
+              duration: 2500
+            });
+            this.router.navigate(['']);
+          }, err => {
+            this.snackBar.open('Something went wrong. Please try again, or skip to your homepage and contact support.', '', {
+              verticalPosition: 'top',
+              panelClass: 'snackbar-red',
+              duration: 2500
+            });
+          }
+        );
       }
     }
   }
