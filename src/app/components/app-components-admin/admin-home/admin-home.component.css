@@ -19,3 +19,31 @@
     width: 100%;
     border-bottom: 2px solid rgb(178, 226, 219);
 }
+
+.admin-home .content-table {
+    width: 100%;
+}
+
+.admin-home .lecturer-table, .focus-window, .table-filter {
+    width: 50%;
+}
+
+.admin-home .table-actual {
+    width: 100%;
+    background-color: rgb(154, 212, 203);
+}
+
+
+.admin-home .mat-header-row {
+    height: 30px;
+}
+.admin-home .mat-form-field-wrapper {
+    padding-bottom: 0;
+}
+.admin-home .mat-header-cell, .mat-cell {
+    font-size: 16px;
+}
+
+/* .admin-home .focus-window {
+    width
+} */

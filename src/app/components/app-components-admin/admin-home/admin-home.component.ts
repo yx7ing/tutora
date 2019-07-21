@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AdminCreateLecturerComponent } from '../admin-create-lecturer/admin-create-lecturer.component';
 import { FirebaseService } from 'src/app/services/firebase.service';
-import { User } from 'src/app/models/user';
 import { UserLecturer } from 'src/app/models/userLecturer';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-admin-home',
@@ -15,6 +15,8 @@ import { UserLecturer } from 'src/app/models/userLecturer';
 export class AdminHomeComponent implements OnInit {
 
   lecturers: UserLecturer[];
+  displayedColumns: string[] = ['name', 'email'];
+  dataSource;
 
   constructor(private authSrv: AuthService, private router: Router, private dialog: MatDialog, private fbSrv: FirebaseService) { }
 
@@ -28,6 +30,7 @@ export class AdminHomeComponent implements OnInit {
     this.fbSrv.getLecturers().subscribe(
       response => {
         this.lecturers = response;
+        this.dataSource = new MatTableDataSource(this.lecturers);
       }
     )
   }
@@ -49,5 +52,9 @@ export class AdminHomeComponent implements OnInit {
       width: '50vw',
       height: '50vh'
     })
-  }  
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }

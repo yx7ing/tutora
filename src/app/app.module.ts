@@ -17,6 +17,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
 
 // app files
 import { environment } from '../environments/environment';
@@ -99,7 +101,9 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTableModule,
+    MatInputModule
   ],
   providers: [
     AngularFirestore,
