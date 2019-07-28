@@ -7,6 +7,10 @@
     z-index: 1;
 }
 
+.navbar *:focus {
+    outline: none;
+}
+
 .navbar .logo {
     position: absolute;
     margin-left: auto;
@@ -29,7 +33,10 @@
 .navbar .navigation-item-profile {
     height: 50px;
 }
-.navbar .navigation-item-profile:hover {
+.navbar .navigation-item-profile-clickable {
+    height: 50px;
+}
+.navbar .navigation-item-profile-clickable:hover {
     background-color: rgb(110, 223, 207);
 }
 

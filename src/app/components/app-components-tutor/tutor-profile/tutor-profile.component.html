@@ -1,0 +1,61 @@
+<div class="tutor-profile">
+    <div class="container">
+        <div class="header">
+            Profile
+        </div>
+        <div>
+            <table class="detail-table">
+                <tr>
+                    <td class="column-1" valign="top">
+                        <div class="detail-title">Basic Details</div>
+                        <label class="tutor-label">Name</label>
+                        <div class="detail-row">{{currentTutor.name}}</div>
+                        <label class="tutor-label">Email</label>
+                        <div class="detail-row">{{currentTutor.email}}</div>
+                        <label class="tutor-label">Date of Birth</label>
+                        <div class="detail-row">{{currentTutor.dob}}</div>
+                        <label class="tutor-label">Mobile</label>
+                        <div class="detail-row">{{currentTutor.mobile}}</div>
+                        <label class="tutor-label">Address</label>
+                        <div class="detail-row">{{currentTutor.address}}</div>
+                        <div class="detail-title">Course Details</div>
+                        <label class="tutor-label">Degree</label>
+                        <div class="detail-row">{{currentTutor.degree}}</div>
+                        <label class="tutor-label">Year of Completion</label>
+                        <div class="detail-row">{{currentTutor.yoc}}</div>
+                        <label class="tutor-label">UOC Completed</label>
+                        <div class="detail-row">{{currentTutor.uoc}}</div>
+                        <label class="tutor-label">WAM</label>
+                        <div class="detail-row">{{currentTutor.wam}}</div>
+                    </td>
+                    <td class="column-2" valign="top">
+                        <div class="tutor-detail-wrapper">
+                            <div class="detail-title">Tutor Details</div>
+                            <div class="detail-subtitle">Curriculum Vitae</div>
+                            <div class="detail-row">
+                                <a href="currentTutor.cv.downloadUrl">{{currentTutor.cv.fileName}}</a>
+                            </div>
+                            <div class="tutor-experience-wrapper" *ngIf="currentTutor.tutorExperience.length>0">
+                                <div class="detail-subtitle">Tutoring Experience</div>
+                                <div class="tutor-experience-inner-wrapper">
+                                    <div class="tutor-experience" *ngFor="let tutExp of currentTutor.tutorExperience">
+                                        <label class="tutor-label">Course</label>
+                                        <div class="detail-row-2">{{tutExp.course}} - {{tutExp.courseName}}</div>
+                                        <label class="tutor-label">Lecturer in Charge</label>
+                                        <div class="detail-row-2">{{tutExp.lic}}</div>
+                                        <label class="tutor-label">Most Recent Term Taught</label>
+                                        <div class="detail-row-2">{{tutExp.taught}}</div>
+                                        <label class="tutor-label">MyExperience (or equivalent) Results</label>
+                                        <div class="detail-row-2">
+                                            <a href="tutExp.document.downloadUrl">{{tutExp.document.fileName}}</a>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

@@ -7,6 +7,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ClassUtilService {
 
+  searchState: BehaviorSubject<string> = new BehaviorSubject<string>("initial");
+
   constructor(private http: HttpClient) { }
 
   searchfaculties() {
@@ -27,6 +29,7 @@ export class ClassUtilService {
   }
 
   searchCourses(faculty: string, term: string) {
+    this.searchState.next("searching")
     var coursesParsed = new BehaviorSubject<string[]>([]);
     try {
       this.http.get('https://cors-anywhere.herokuapp.com/http://classutil.unsw.edu.au/' +
@@ -46,6 +49,9 @@ export class ClassUtilService {
           }
           coursesParsed.next(courses);
           console.log(courses);
+          if (courses.length > 0) {
+            this.searchState.next("found");
+          }
         }
       )
     } catch {
@@ -53,6 +59,10 @@ export class ClassUtilService {
       return 
     }
     return coursesParsed;
+  }
+
+  getSearchState() {
+    return this.searchState;
   }
 
 }

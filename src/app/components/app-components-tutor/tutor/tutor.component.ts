@@ -10,7 +10,11 @@ import { Router } from '@angular/router';
 })
 export class TutorComponent implements OnInit {
 
-  currentUser: User;
+  currentUser: User = {
+    email: "",
+    name: "",
+    type: ""
+  };
 
   constructor(private authSrv: AuthService, private router: Router) { }
 
@@ -18,12 +22,8 @@ export class TutorComponent implements OnInit {
     this.authSrv.getCurrentUser().subscribe(
       response => {
         this.currentUser = response;
-        if (!this.currentUser) {
-          this.currentUser = {
-            email: "",
-            name: "",
-            type: ""
-          };
+        if (response) {
+          this.currentUser = response;
         }
         console.log(this.currentUser);
       }

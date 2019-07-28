@@ -72,4 +72,20 @@ export class FirebaseService {
     return this.lecturers;
   }
 
+  tutor: BehaviorSubject<UserTutor> = new BehaviorSubject<UserTutor>({
+    email: "", name: "", dob: "", mobile: "", address: "", degree: "",
+    yoc: "", uoc: "", wam: "", cv: null, tutorExperience: []
+  })
+  searchTutor(email: string) {
+    this.afs.collection('usersTutors', ref => ref
+    .where('email' , '==', email)).snapshotChanges().subscribe(
+      response => {
+        this.tutor.next(response[0].payload.doc.data() as UserTutor);
+      }
+    )
+  }
+  getTutor() {
+    return this.tutor;
+  }
+
 }

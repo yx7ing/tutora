@@ -19,6 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
+import { MatTabsModule } from '@angular/material/tabs';
 
 // app files
 import { environment } from '../environments/environment';
@@ -28,6 +29,7 @@ import { FirebaseService } from './services/firebase.service';
 import { AuthService } from './core/auth.service';
 import { AuthGuard } from './core/auth.guard';
 import { UserService } from './core/user.service';
+import { DropZoneDirective } from './directives/drop-zone.directive';
 
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -40,9 +42,10 @@ import { LecturerHomeComponent } from './components/app-components-lecturer/lect
 import { TutorHomeComponent } from './components/app-components-tutor/tutor-home/tutor-home.component';
 import { LoginRedirectComponent } from './components/login-redirect/login-redirect.component';
 import { AdminCreateLecturerComponent } from './components/app-components-admin/admin-create-lecturer/admin-create-lecturer.component';
-import { DropZoneDirective } from './directives/drop-zone.directive';
 import { UploadComponent } from './components/upload/upload.component';
 import { RegisterDetailsComponent } from './components/register-details/register-details.component';
+import { TutorProfileComponent } from './components/app-components-tutor/tutor-profile/tutor-profile.component';
+import { LecturerCourseComponent } from './components/app-components-lecturer/lecturer-course/lecturer-course.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -59,13 +62,15 @@ const appRoutes: Routes = [
   {path: 'crelture', component: LecturerComponent,
    children: [
       {path: '', redirectTo: 'home', pathMatch: 'full'},
-      {path: 'home', component: LecturerHomeComponent}
+      {path: 'home', component: LecturerHomeComponent},
+      {path: 'course', component: LecturerCourseComponent}
    ]
   },
   {path: 'trout', component: TutorComponent,
    children: [
       {path: '', redirectTo: 'home', pathMatch: 'full'},
-      {path: 'home', component: TutorHomeComponent}
+      {path: 'home', component: TutorHomeComponent},
+      {path: 'profile', component: TutorProfileComponent}
    ]
   }
 ]
@@ -86,7 +91,9 @@ const appRoutes: Routes = [
     AdminCreateLecturerComponent,
     DropZoneDirective,
     UploadComponent,
-    RegisterDetailsComponent
+    RegisterDetailsComponent,
+    TutorProfileComponent,
+    LecturerCourseComponent
   ],
   imports: [
     BrowserModule,
@@ -103,7 +110,8 @@ const appRoutes: Routes = [
     MatDialogModule,
     MatSelectModule,
     MatTableModule,
-    MatInputModule
+    MatInputModule,
+    MatTabsModule
   ],
   providers: [
     AngularFirestore,

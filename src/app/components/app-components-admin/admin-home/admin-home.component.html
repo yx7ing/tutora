@@ -3,6 +3,7 @@
         <div class="header">
             My Lecturers
         </div>
+        <br>
         <mat-form-field class="table-filter">
             <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search lecturers">
         </mat-form-field>
@@ -18,16 +19,15 @@
                         <td mat-cell *matCellDef="let lecturer"> {{lecturer.email}} </td>
                     </ng-container>
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <tr mat-row *matRowDef="let row; let i = index; columns: displayedColumns;"
+                    [ngClass]="{'highlight': selectedRowIndex == i}"
+                    (click)="highlight(i)"></tr>
                 </table>
             </td>
             <td class="focus-window">
-
+                {{lecturers[selectedRowIndex] | json}}
             </td>
         </tr> </table>
-        <div *ngFor="let lecturer of lecturers">
-            {{lecturer | json}}
-        </div>
         <button (click)="openCreateLecturerDialog()">add lecturer</button>
     </div>
     admin login successful

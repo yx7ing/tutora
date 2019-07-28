@@ -1,8 +1,12 @@
 .admin-home {
     width: 100%;
-    height: 100vh;
+    height: auto;
+    display: block;
     position: absolute;
-    top: 0;
+    bottom:0;
+    top:0;
+    left:0;
+    right:0;
     z-index: 0;
     background-color: rgb(154, 212, 203);
     padding-top: 50px;
@@ -44,6 +48,17 @@
     font-size: 16px;
 }
 
-/* .admin-home .focus-window {
-    width
-} */
+.mat-row:nth-child(odd){
+    background-color: rgb(174, 232, 223);
+}
+.mat-row:nth-child(even){
+    background-color: rgb(154, 212, 203);
+}
+
+.highlight {
+    background: rgb(154, 252, 203) !important;
+}
+
+.admin-home .focus-window {
+    
+}

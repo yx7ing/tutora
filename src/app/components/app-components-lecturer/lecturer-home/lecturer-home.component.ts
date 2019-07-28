@@ -3,6 +3,8 @@ import { AuthService } from 'src/app/core/auth.service';
 import { Router } from '@angular/router';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UserLecturer } from 'src/app/models/userLecturer';
+import { MatTableDataSource } from '@angular/material/table';
+import { CourseLink } from 'src/app/models/courseLink';
 
 @Component({
   selector: 'app-lecturer-home',
@@ -19,6 +21,8 @@ export class LecturerHomeComponent implements OnInit {
     admin: "",
     courseLinks: []
   };
+  displayedColumns: string[] = ['course', 'name'];
+  dataSource;
 
   ngOnInit() {
     this.authSrv.getCurrentUser().subscribe(
@@ -30,6 +34,7 @@ export class LecturerHomeComponent implements OnInit {
     this.authSrv.getCurrentLecturer().subscribe(
       response => {
         this.lecturer = response;
+        this.dataSource = new MatTableDataSource(this.lecturer.courseLinks);
       }
     )
   }
@@ -46,6 +51,8 @@ export class LecturerHomeComponent implements OnInit {
     );
   }
 
-
+  selectCourse(course: CourseLink) {
+    this.router.navigate(['/crelture/course'], {state: {course: course.course}});
+  }
 
 }
