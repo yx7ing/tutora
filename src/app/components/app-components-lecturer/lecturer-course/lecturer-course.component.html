@@ -8,7 +8,14 @@
                 Applications
             </mat-tab>
             <mat-tab label="Classes">
-                Classes
+                <div *ngFor="let class of classes">
+                    Type: {{class.type}}<br>
+                    Session: {{class.session}}<br>
+                    ID: {{class.id}}<br>
+                    Status: {{class.status}}<br>
+                    Enrolments: {{class.enrolments}}<br>
+                    Details: {{class.details}}<br><br>
+                </div>
             </mat-tab>
         </mat-tab-group>
     </div>

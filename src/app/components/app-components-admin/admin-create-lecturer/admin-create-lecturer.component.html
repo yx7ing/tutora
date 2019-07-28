@@ -47,6 +47,8 @@
         Results (Data retrieved from <a href="http://classutil.unsw.edu.au/">http://classutil.unsw.edu.au/</a>):<br><br>
         <div *ngIf="searchState=='initial'">Please search for a course<br><br></div>
         <div *ngIf="searchState=='searching'">Searching...<br><br></div>
+        <div *ngIf="searchState=='notfound'">No courses found, please try another search<br><br></div>
+        <div *ngIf="searchState=='error'">Error, please try another search<br><br></div>
         <div class="courses-table-wrapper" *ngIf="searchState=='found'">
             <table class="courses-table">
                 <tr *ngFor="let course of courses; let i = index;">
