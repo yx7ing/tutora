@@ -27,12 +27,20 @@ export class AdminCreateLecturerComponent implements OnInit {
   courseChecks = [];
   selectedCourses = [];
 
+  searchState = ""
+
   constructor(private snackBar: MatSnackBar, private cuSrv: ClassUtilService, private authSrv: AuthService) { }
 
   ngOnInit() {
     this.authSrv.getCurrentUser().subscribe(
       response => {
         this.currentUser = response;
+      }
+    )
+
+    this.cuSrv.getSearchState().subscribe(
+      response => {
+        this.searchState = response;
       }
     )
   }

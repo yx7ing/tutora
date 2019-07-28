@@ -1,0 +1,115 @@
+.tutor-profile {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: absolute;
+    bottom:0;
+    top:0;
+    left:0;
+    right:0;
+    z-index: 0;
+    background-color: rgb(154, 212, 203);
+    padding-top: 50px;
+}
+
+.tutor-profile .container {
+    padding: 40px 60px;
+}
+
+.tutor-profile .header {
+    font-family: 'Staatliches', cursive;
+    font-size: 50px;
+    color: white;
+    width: 100%;
+    border-bottom: 2px solid rgb(178, 226, 219);
+}
+
+.tutor-profile .detail-table {
+    margin: 0 auto;
+    height: 550px;
+    text-align: left;
+}
+.tutor-profile .column-1 {
+    width: 30vw;
+    height: 100%;
+    padding: 0 25px;
+}
+.tutor-profile .column-2 {
+    width: 60vw;
+    height: 100%;
+    padding: 0 25px;
+}
+
+.tutor-profile .detail-title {
+    color: white;
+    font-size: 30px;
+    font-family: 'Staatliches', cursive;
+}
+
+.tutor-profile .tutor-label {
+    font-weight: bold;
+    margin: 5px 0;
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid rgb(178, 226, 219);
+    color: white;
+}
+
+.tutor-profile .detail-row {
+    width: 100%;
+    text-align: right;
+    margin-bottom: 15px;
+    color: white;
+}
+.tutor-profile .detail-row-2 {
+    width: 100%;
+    text-align: right;
+    margin-bottom: 5px;
+    color: white;
+}
+
+.tutor-profile .tutor-detail-wrapper {
+    width: 100%;
+}
+
+.tutor-profile .detail-subtitle {
+    color: white;
+    font-size: 24px;
+    width: 100%;
+    border-bottom: 3px solid rgb(178, 226, 219);
+}
+
+.tutor-profile .tutor-experience-wrapper {
+    width: 100%;
+}
+
+.tutor-profile .tutor-experience-inner-wrapper {
+    width: 100%;
+    height: 539px;
+    overflow-y: auto;
+}
+
+.tutor-profile .tutor-experience {
+    width: 90%;
+    margin: auto;
+    padding: 15px 0 10px 0;
+    border-bottom: 3px solid white
+}
+
+/*
+
+.tutor-profile .tutoring-experience {
+    border-bottom: 2px solid rgb(119, 234, 219);
+    border-top: 2px solid rgb(119, 234, 219);
+    width: 100%;
+    padding: 10px 0;
+}
+
+.tutor-profile .right-column-table {
+    height: 100%;
+
+}
+
+.tutor-profile .right-column-table td{
+    padding: 5px 20px;
+} */

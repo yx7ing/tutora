@@ -18,6 +18,8 @@ export class AdminHomeComponent implements OnInit {
   displayedColumns: string[] = ['name', 'email'];
   dataSource;
 
+  selectedRowIndex: number = -1;
+
   constructor(private authSrv: AuthService, private router: Router, private dialog: MatDialog, private fbSrv: FirebaseService) { }
 
   ngOnInit() {
@@ -49,12 +51,20 @@ export class AdminHomeComponent implements OnInit {
 
   openCreateLecturerDialog() {
     const dialogRef = this.dialog.open(AdminCreateLecturerComponent, {
-      width: '50vw',
-      height: '50vh'
+      width: '30vw',
+      position: {
+        top: '60px'
+      }
     })
   }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.selectedRowIndex = -1;
   }
+
+  highlight(index){
+    this.selectedRowIndex = index;
+  }
+
 }
