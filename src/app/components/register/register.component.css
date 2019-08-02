@@ -14,7 +14,6 @@
     padding-top: 80px;
     font-size: 90px;
     font-family: 'Pacifico', 'cursive';
-    color: white;
 }
 
 .register .register-input {
@@ -44,7 +43,6 @@
 }
 
 .register .register-action {
-    color: white;
     padding: 20px;
     width: 320px;
     margin: 0 auto;

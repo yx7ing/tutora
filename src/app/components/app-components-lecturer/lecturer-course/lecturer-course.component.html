@@ -1,11 +1,24 @@
 <div class="lecturer-course">
     <div class="container">
         <div class="header">
-            {{course}}
+            {{course.course}} - {{course.courseName}}
         </div>
         <mat-tab-group mat-align-tabs="center" mat-stretch-tabs>
             <mat-tab label="Applications">
-                Applications
+                <div *ngIf="!vacancy">
+                    Searching database
+                </div>
+                <div *ngIf="vacancy">
+                    <div *ngIf="vacancy.lecturerEmail==''" class="open-vacancy">
+                        You have not opened vacancies for this course yet.<br><br>
+                        Please enter the number of tutor vacancies you would like to open for this course:<br><br>
+                        <input type="number" value=1 min=1 #numVacancies class="vacancy-input">
+                        <button (click)="createVacancy(numVacancies.value)" class="btn-openvac">OPEN VACANCIES</button>
+                    </div>
+                    <div *ngIf="vacancy.lecturerEmail!=''">
+                        {{vacancy | json}}  
+                    </div>
+                </div>
             </mat-tab>
             <mat-tab label="Classes">
                 <div *ngFor="let class of classes">

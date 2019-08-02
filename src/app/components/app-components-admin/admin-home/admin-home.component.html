@@ -4,9 +4,10 @@
             My Lecturers
         </div>
         <br>
-        <mat-form-field class="table-filter">
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search lecturers">
-        </mat-form-field>
+        <div class="table-action-bar">
+            <input type=text class="table-filter" (keyup)="applyFilter($event.target.value)" placeholder="Search lecturers">
+            <button class="btn-add" (click)="openCreateLecturerDialog()">Add Lecturer</button>
+        </div>
         <table class="content-table"> <tr>
             <td class="lecturer-table">
                 <table mat-table [dataSource]="dataSource" class="table-actual">
@@ -28,7 +29,6 @@
                 {{lecturers[selectedRowIndex] | json}}
             </td>
         </tr> </table>
-        <button (click)="openCreateLecturerDialog()">add lecturer</button>
     </div>
     admin login successful
     <button (click)="logout()">Log out</button>

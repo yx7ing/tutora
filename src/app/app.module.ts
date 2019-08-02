@@ -46,6 +46,8 @@ import { UploadComponent } from './components/upload/upload.component';
 import { RegisterDetailsComponent } from './components/register-details/register-details.component';
 import { TutorProfileComponent } from './components/app-components-tutor/tutor-profile/tutor-profile.component';
 import { LecturerCourseComponent } from './components/app-components-lecturer/lecturer-course/lecturer-course.component';
+import { TutorApplyComponent } from './components/app-components-tutor/tutor-apply/tutor-apply.component';
+import { TutorApplyApplicationComponent } from './components/app-components-tutor/tutor-apply-application/tutor-apply-application.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -70,7 +72,8 @@ const appRoutes: Routes = [
    children: [
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: 'home', component: TutorHomeComponent},
-      {path: 'profile', component: TutorProfileComponent}
+      {path: 'profile', component: TutorProfileComponent},
+      {path: 'apply', component: TutorApplyComponent}
    ]
   }
 ]
@@ -93,7 +96,9 @@ const appRoutes: Routes = [
     UploadComponent,
     RegisterDetailsComponent,
     TutorProfileComponent,
-    LecturerCourseComponent
+    LecturerCourseComponent,
+    TutorApplyComponent,
+    TutorApplyApplicationComponent
   ],
   imports: [
     BrowserModule,
@@ -122,7 +127,8 @@ const appRoutes: Routes = [
     UserService
   ],
   entryComponents: [
-    AdminCreateLecturerComponent
+    AdminCreateLecturerComponent,
+    TutorApplyApplicationComponent
   ],
   bootstrap: [AppComponent]
 })

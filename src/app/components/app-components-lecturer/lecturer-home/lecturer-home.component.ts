@@ -52,7 +52,7 @@ export class LecturerHomeComponent implements OnInit {
   }
 
   selectCourse(course: CourseLink) {
-    this.router.navigate(['/crelture/course'], {state: {course: course.course}});
+    this.router.navigate(['/crelture/course'], {state: {course: course}});
   }
 
 }

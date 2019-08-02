@@ -1,0 +1,37 @@
+<div class="tutor-apply-application">
+    <div class="header">
+        {{data.vacancy.course}} - {{data.vacancy.courseName}}
+    </div>
+    <label class="tutor-apply-label">Lecturer in Charge</label>
+    <div class="detail-row">{{data.vacancy.lecturerName}}&nbsp;&nbsp;&nbsp;</div>
+    <label class="tutor-apply-label">LiC Email</label>
+    <div class="detail-row">{{data.vacancy.lecturerEmail}}&nbsp;&nbsp;&nbsp;</div>
+    <label class="tutor-apply-label">Current Vacancy</label>
+    <div class="detail-row">{{data.vacancy.filled}}/{{data.vacancy.vacancies}}&nbsp;&nbsp;&nbsp;</div>
+
+    <div class="header-2">
+        Application
+    </div>
+    <label class="tutor-apply-label">What was your mark in this (or equivalent) course?</label>
+    <div class="detail-row-2"><input type=number value=65 min=0 max=100 #mark>&nbsp;&nbsp;&nbsp;</div>
+    <label class="tutor-apply-label">Have you had any university tutoring experience before?</label>
+    <div class="detail-row-2">
+        <input type=radio name="tutexp" #tutExpYes>Yes
+        <input type=radio name="tutexp" #tutExpNo checked>No&nbsp;&nbsp;&nbsp;
+    </div>
+    <label class="tutor-apply-label">Have you tutored this course before?</label>
+    <div class="detail-row-2">
+        <input type=radio name="courseexp" #courseExpYes>Yes
+        <input type=radio name="courseexp" #courseExpNo checked>No&nbsp;&nbsp;&nbsp;
+    </div>
+    <label class="tutor-apply-label">Leave some general comments about your skills, characteristics, etc. that make you suitable to tutor this course.</label>
+    <div class="detail-row-3"><textarea #comments placeholder="Comments"></textarea></div>
+    <label class="tutor-apply-label">Please note your tutorial time preferences (day, time).</label>
+    <div class="detail-row-3"><textarea #timePref placeholder="Time preferences"></textarea></div>
+    <label class="tutor-apply-label-2">Lecturers will view your other relevant details including CV and MyExperience results as they are in your profile.</label>
+
+    <div class="btn-wrapper">
+        <button class="btn-submit" 
+        (click)="submitApplication(mark.value, tutExpYes.checked, courseExpYes.checked, comments.value, timePref.value)">SUBMIT APPLICATION</button>
+    </div>
+</div>
