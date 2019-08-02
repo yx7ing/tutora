@@ -1,0 +1,63 @@
+.tutor-apply {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: absolute;
+    bottom:0;
+    top:0;
+    left:0;
+    right:0;
+    z-index: 0;
+    background-color: rgb(154, 212, 203);
+    padding-top: 50px;
+}
+
+.tutor-apply .container {
+    padding: 40px 60px;
+}
+
+.tutor-apply .header {
+    font-family: 'Staatliches', cursive;
+    font-size: 50px;
+    width: 100%;
+    border-bottom: 2px solid rgb(178, 226, 219);
+}
+
+.tutor-apply .table-filter {
+    display: block;
+    border: 0;
+    background-color: rgb(192, 235, 228);
+    width: 416px;
+    height: 28px;
+    padding: 5px 15px;
+    border-radius: 100px;
+    font-size: 16px;
+    margin: 20px 0 10px 0;
+}
+
+.tutor-apply .table-actual {
+    width: 100%;
+    background-color: rgb(154, 212, 203);
+}
+
+.tutor-apply .mat-header-row {
+    height: 30px;
+}
+.tutor-apply .mat-cell {
+    font-size: 16px;
+}
+.tutor-apply .mat-header-cell {
+    color: white;
+    font-size: 18px;
+    border-bottom: 2px solid white;
+}
+
+.tutor-apply .mat-row:nth-child(odd){
+    background-color: rgb(170, 230, 224);
+}
+.tutor-apply .mat-row:nth-child(even){
+    background-color: rgb(114, 214, 204);
+}
+.tutor-apply .mat-row:hover {
+    outline: 1px solid white;
+}

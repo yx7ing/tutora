@@ -14,7 +14,6 @@
     padding-top: 80px;
     font-size: 90px;
     font-family: 'Pacifico', 'cursive';
-    color: white;
 }
 
 .login .login-input {
@@ -45,7 +44,6 @@
 }
 
 .login .login-action-1, .login-action-2 {
-    color: white;
     padding: 20px;
     width: 320px;
     margin: 0 auto;

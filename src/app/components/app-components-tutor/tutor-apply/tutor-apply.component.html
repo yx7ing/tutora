@@ -1,0 +1,40 @@
+<div class="tutor-apply">
+    <div class="container">
+        <div class="header">
+            Apply for Courses
+        </div>
+        Click on a course to apply
+        <div *ngIf="!vacancies">
+            Fetching data
+        </div>
+        <div *ngIf="vacancies">
+            <div *ngIf="vacancies.length==0">
+                There are currently no courses with open vacancies.
+            </div>
+            <div *ngIf="vacancies.length>0">
+                <input type=text class="table-filter" (keyup)="applyFilter($event.target.value)" placeholder="Search vacancies">
+                <table mat-table [dataSource]="dataSource" class="table-actual" style="width:100%">
+                    <ng-container matColumnDef="course">
+                        <th mat-header-cell *matHeaderCellDef> Course </th>
+                        <td mat-cell *matCellDef="let vacancy"> {{vacancy.course}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="courseName">
+                        <th mat-header-cell *matHeaderCellDef> Name </th>
+                        <td mat-cell *matCellDef="let vacancy"> {{vacancy.courseName}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="positions">
+                        <th mat-header-cell *matHeaderCellDef> Positions </th>
+                        <td mat-cell *matCellDef="let vacancy"> {{vacancy.filled}}/{{vacancy.vacancies}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="lecturer">
+                        <th mat-header-cell *matHeaderCellDef> LiC </th>
+                        <td mat-cell *matCellDef="let vacancy"> {{vacancy.lecturerName}} </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                    (click)="selectCourse(row)"></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

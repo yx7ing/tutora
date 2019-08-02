@@ -19,7 +19,6 @@
 .tutor-profile .header {
     font-family: 'Staatliches', cursive;
     font-size: 50px;
-    color: white;
     width: 100%;
     border-bottom: 2px solid rgb(178, 226, 219);
 }
@@ -41,7 +40,6 @@
 }
 
 .tutor-profile .detail-title {
-    color: white;
     font-size: 30px;
     font-family: 'Staatliches', cursive;
 }
@@ -52,20 +50,17 @@
     display: block;
     width: 100%;
     border-bottom: 1px solid rgb(178, 226, 219);
-    color: white;
 }
 
 .tutor-profile .detail-row {
     width: 100%;
     text-align: right;
     margin-bottom: 15px;
-    color: white;
 }
 .tutor-profile .detail-row-2 {
     width: 100%;
     text-align: right;
     margin-bottom: 5px;
-    color: white;
 }
 
 .tutor-profile .tutor-detail-wrapper {
@@ -73,7 +68,6 @@
 }
 
 .tutor-profile .detail-subtitle {
-    color: white;
     font-size: 24px;
     width: 100%;
     border-bottom: 3px solid rgb(178, 226, 219);
