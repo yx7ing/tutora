@@ -43,7 +43,8 @@ export class FirebaseService {
       courseName = courseName.substr(1, courseName.length)
       var courseLink: CourseLink = {
         course: courseCode,
-        courseName: courseName
+        courseName: courseName,
+        notification: false
       }
       courseLinks.push(courseLink);
     }
@@ -99,7 +100,7 @@ export class FirebaseService {
           this.lecturerVacancy.next(response[0].payload.doc.data() as Vacancy);  
         } else {
           this.lecturerVacancy.next({
-            lecturerEmail: "", lecturerName: "", course: "", courseName: "", vacancies: 0, filled: 0
+            lecturerEmail: "", lecturerName: "", course: "", courseName: "", vacancies: 0, filled: 0, active: false
           });
         }
       }
@@ -138,6 +139,19 @@ export class FirebaseService {
       res => {
         this.submitApplicationResponse.next("success");
         this.submitApplicationResponse.next("");
+        this.afs.collection('usersLecturers', ref => ref
+        .where('email', '==', application.lecturer)).snapshotChanges().subscribe(
+          response => {
+            var lecturer = response[0].payload.doc.data() as UserLecturer;
+            var courseLinks = lecturer.courseLinks;
+            for (let courseLink of courseLinks) {
+              if (courseLink.course == application.course) {
+                courseLink.notification = true;
+                this.afs.collection('usersLecturers').doc(response[0].payload.doc.id).update({'courseLinks': courseLinks})
+              }
+            }
+          }
+        )
       }
     );
   }
@@ -147,7 +161,51 @@ export class FirebaseService {
 
   applications: BehaviorSubject<Application[]> = new BehaviorSubject<Application[]>([]);
   searchApplications(email: string) {
-    this.afs.collection('appl')
+    this.afs.collection('applications', ref => ref
+    .where('email', '==', email)).snapshotChanges().subscribe(
+      response => {
+        var applications: Application[] = []
+        for (let item of response) {
+          applications.push(item.payload.doc.data() as Application);
+        }
+        this.applications.next(applications);
+      }
+    )
+  }
+  getApplications() {
+    return this.applications;
   }
 
+  applicationsByCourse: BehaviorSubject<Application[]> = new BehaviorSubject<Application[]>([]);
+  searchApplicationsByCourse(course: string) {
+    this.afs.collection('applications', ref => ref
+    .where('course', '==', course)).snapshotChanges().subscribe(
+      response => {
+        var applications: Application[] = []
+        for (let item of response) {
+          applications.push(item.payload.doc.data() as Application);
+        }
+        this.applicationsByCourse.next(applications);
+      }
+    )
+  }
+  getApplicationsByCourse() {
+    return this.applicationsByCourse;
+  }
+
+  seeNotification(email: string, course: string) {
+    this.afs.collection('usersLecturers', ref => ref
+    .where('email', '==', email)).snapshotChanges().subscribe(
+      response => {
+        var lecturer = response[0].payload.doc.data() as UserLecturer;
+        var courseLinks = lecturer.courseLinks;
+        for (let courseLink of courseLinks) {
+          if (courseLink.course == course) {
+            courseLink.notification = false;
+            this.afs.collection('usersLecturers').doc(response[0].payload.doc.id).update({'courseLinks': courseLinks})
+          }
+        }
+      }  
+    );
+  }
 }

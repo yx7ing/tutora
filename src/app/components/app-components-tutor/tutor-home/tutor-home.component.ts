@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/auth.service';
 import { Router } from '@angular/router';
+import { Application } from 'src/app/models/application';
+import { User } from 'src/app/models/user';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-tutor-home',
@@ -9,9 +12,24 @@ import { Router } from '@angular/router';
 })
 export class TutorHomeComponent implements OnInit {
 
-  constructor(private authSrv: AuthService, private router: Router) { }
+  currentUser: User;
+  applications: Application[];
+
+  constructor(private authSrv: AuthService, private router: Router, private fbSrv: FirebaseService) { }
 
   ngOnInit() {
+    this.authSrv.getCurrentUser().subscribe(
+      response => {
+        this.currentUser = response;
+        this.fbSrv.searchApplications(response.email);
+      }
+    );
+
+    this.fbSrv.getApplications().subscribe(
+      response => {
+        this.applications = response;
+      }
+    );
   }
 
   logout() {

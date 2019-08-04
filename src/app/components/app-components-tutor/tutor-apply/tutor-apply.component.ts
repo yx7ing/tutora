@@ -7,6 +7,7 @@ import { TutorApplyApplicationComponent } from '../tutor-apply-application/tutor
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/core/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Application } from 'src/app/models/application';
 
 @Component({
   selector: 'app-tutor-apply',
@@ -19,6 +20,7 @@ export class TutorApplyComponent implements OnInit {
   displayedColumns: string[] = ['course', 'courseName', 'positions', 'lecturer'];
   dataSource;
   currentUser: User;
+  applications: Application[];
 
   constructor(private fbSrv: FirebaseService, private dialog: MatDialog, private authSrv: AuthService, private snackBar: MatSnackBar) { }
 
@@ -26,8 +28,9 @@ export class TutorApplyComponent implements OnInit {
     this.authSrv.getCurrentUser().subscribe(
       response => {
         this.currentUser = response;
+        this.fbSrv.searchApplications(response.email);
       }
-    )
+    );
 
     this.fbSrv.searchVacancies();
     this.fbSrv.getVacancies().subscribe(
@@ -35,7 +38,7 @@ export class TutorApplyComponent implements OnInit {
         this.vacancies = response;
         this.dataSource = new MatTableDataSource(this.vacancies);
       }
-    )
+    );
 
     this.fbSrv.getSubmitApplicationResponse().subscribe(
       response => {
@@ -44,10 +47,16 @@ export class TutorApplyComponent implements OnInit {
             verticalPosition: 'top',
             panelClass: 'snackbar-green',
             duration: 2000
-          })
+          });
         }
       }
-    )
+    );
+
+    this.fbSrv.getApplications().subscribe(
+      response => {
+        this.applications = response;
+      }
+    );
   }
 
   applyFilter(filterValue: string) {
@@ -55,12 +64,26 @@ export class TutorApplyComponent implements OnInit {
   }
 
   selectCourse(vacancy: Vacancy) {
-    console.log(vacancy)
-    this.dialog.open(TutorApplyApplicationComponent, {
-      data: {
-        vacancy: vacancy,
-        user: this.currentUser
+    var applied = false;
+    for (let application of this.applications) {
+      if (vacancy.course == application.course) {
+        applied = true;
       }
-    });
+    }
+    if (applied == false) {
+      this.dialog.open(TutorApplyApplicationComponent, {
+        data: {
+          vacancy: vacancy,
+          user: this.currentUser
+        }
+      });
+    } else {
+      this.snackBar.open("You have already applied for this position.", '', {
+        verticalPosition: 'top',
+        panelClass: 'snackbar-red',
+        duration: 2000
+      });
+    }
   }
+
 }
