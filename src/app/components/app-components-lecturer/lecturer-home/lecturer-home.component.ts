@@ -21,7 +21,7 @@ export class LecturerHomeComponent implements OnInit {
     admin: "",
     courseLinks: []
   };
-  displayedColumns: string[] = ['course', 'name'];
+  displayedColumns: string[] = ['course', 'name', 'notification'];
   dataSource;
 
   ngOnInit() {
@@ -52,6 +52,7 @@ export class LecturerHomeComponent implements OnInit {
   }
 
   selectCourse(course: CourseLink) {
+    this.fbSrv.seeNotification(this.lecturer.email, course.course);
     this.router.navigate(['/crelture/course'], {state: {course: course}});
   }
 

@@ -20,6 +20,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSortModule } from '@angular/material/sort';
 
 // app files
 import { environment } from '../environments/environment';
@@ -48,6 +50,7 @@ import { TutorProfileComponent } from './components/app-components-tutor/tutor-p
 import { LecturerCourseComponent } from './components/app-components-lecturer/lecturer-course/lecturer-course.component';
 import { TutorApplyComponent } from './components/app-components-tutor/tutor-apply/tutor-apply.component';
 import { TutorApplyApplicationComponent } from './components/app-components-tutor/tutor-apply-application/tutor-apply-application.component';
+import { LecturerCourseApplicationComponent } from './components/app-components-lecturer/lecturer-course-application/lecturer-course-application.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -98,7 +101,8 @@ const appRoutes: Routes = [
     TutorProfileComponent,
     LecturerCourseComponent,
     TutorApplyComponent,
-    TutorApplyApplicationComponent
+    TutorApplyApplicationComponent,
+    LecturerCourseApplicationComponent
   ],
   imports: [
     BrowserModule,
@@ -116,7 +120,9 @@ const appRoutes: Routes = [
     MatSelectModule,
     MatTableModule,
     MatInputModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTooltipModule,
+    MatSortModule
   ],
   providers: [
     AngularFirestore,
@@ -128,7 +134,8 @@ const appRoutes: Routes = [
   ],
   entryComponents: [
     AdminCreateLecturerComponent,
-    TutorApplyApplicationComponent
+    TutorApplyApplicationComponent,
+    LecturerCourseApplicationComponent
   ],
   bootstrap: [AppComponent]
 })

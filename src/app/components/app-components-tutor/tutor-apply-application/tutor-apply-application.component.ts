@@ -50,12 +50,16 @@ export class TutorApplyApplicationComponent implements OnInit {
     } else {
       var application: Application = {
         email: this.data.user.email,
+        name: this.data.user.name,
+        lecturer: this.data.vacancy.lecturerEmail,
         course: this.data.vacancy.course,
         mark: mark,
         tutExp: tutExpYes ? "Y" : "N",
         courseExp: courseExpYes ? "Y" : "N",
         comments: comments,
-        timePref: timePref
+        timePref: timePref,
+        status: "pending",
+        active: true
       }
       this.fbSrv.submitApplication(application);
       this.dialogRef.close();

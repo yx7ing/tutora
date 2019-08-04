@@ -1,0 +1,34 @@
+Application<br>
+Name: {{data.application.name}}<br>
+Email: {{data.application.email}}<br>
+Mobile: {{tutor.mobile}}<br>
+Mark: {{data.application.mark}}<br>
+Tutoring experience: {{data.application.tutExp}}<br>
+Tutoring experience for this course: {{data.application.courseExp}}<br>
+Time preferences: {{data.application.timePref}}<br>
+Additional comments: {{data.application.comments}}<br><br>
+
+Tutor Details<br>
+CV: {{tutor.cv.downloadUrl}}<br>
+Tutoring experience results:
+<div *ngFor="let tutExp of tutor.tutorExperience">
+    {{tutExp|json}}
+</div>
+<br>
+Degree: {{tutor.degree}}<br>
+Expected year of completion:{{tutor.yoc}}<br>
+UOC completed:{{tutor.uoc}}<br>
+WAM: {{tutor.wam}}<br><br>
+
+Interview<br>
+if no interview details<br>
+<button>Set interivew</button><br><br>
+if interview details<br>
+<button>Pass</button>
+<button>Fail</button>
+<br><br>
+
+Change status<br>
+<button>Accept</button>
+<button>Shortlist</button>
+<button>Reject</button>

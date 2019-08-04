@@ -28,24 +28,28 @@
     background-color: rgb(154, 212, 203);
 }
 
-
 .lecturer-home .mat-header-row {
     height: 30px;
 }
-.lecturer-home .mat-form-field-wrapper {
-    padding-bottom: 0;
-}
-.lecturer-home .mat-header-cell, .mat-cell {
+.lecturer-home .mat-cell {
     font-size: 16px;
 }
-
-.mat-row:nth-child(odd){
-    background-color: rgb(174, 232, 223);
-}
-.mat-row:nth-child(even){
-    background-color: rgb(154, 212, 203);
+.lecturer-home .mat-header-cell {
+    color: white;
+    font-size: 18px;
+    border-bottom: 2px solid white;
 }
 
-.highlight {
-    background: rgb(154, 252, 203) !important;
+.lecturer-home .mat-row:nth-child(odd){
+    background-color: rgb(170, 230, 224);
+}
+.lecturer-home .mat-row:nth-child(even){
+    background-color: rgb(114, 214, 204);
+}
+.lecturer-home .mat-row:hover {
+    outline: 1px solid white;
+}
+
+.lecturer-home .notification {
+    color: red !important;
 }

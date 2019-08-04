@@ -4,5 +4,6 @@ export interface Vacancy {
     course: string,
     courseName: string,
     vacancies: number,
-    filled: number
+    filled: number,
+    active: boolean
 }

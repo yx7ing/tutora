@@ -74,3 +74,80 @@
     margin-bottom: 10px;
     margin-left: 20px;
 }
+
+.lecturer-course .subheading {  
+    font-family: 'Staatliches', cursive;
+    font-size: 30px;
+    width: 100%;
+    border-bottom: 1px solid rgb(178, 226, 219);
+}
+
+.lecturer-course .table-actual {
+    width: 98%;
+    background-color: rgb(154, 212, 203);
+    margin: 0 auto 20px auto;
+}
+
+.lecturer-course .mat-header-row {
+    height: 30px;
+}
+.lecturer-course .mat-cell {
+    font-size: 16px;
+}
+.lecturer-course .mat-header-cell {
+    color: white;
+    font-size: 18px;
+    border-bottom: 2px solid white;
+}
+
+.lecturer-course .mat-row:nth-child(odd){
+    background-color: rgb(170, 230, 224);
+}
+.lecturer-course .mat-row:nth-child(even){
+    background-color: rgb(114, 214, 204);
+}
+.lecturer-course .mat-row:hover {
+    outline: 1px solid white;
+}
+
+.lecturer-course .small-cell {
+    text-align: center !important;
+    width: 150px;
+    padding: 0;
+}
+
+.lecturer-course .small-cell .mat-sort-header-container {
+    display:flex;
+    justify-content:center;
+  }
+
+/* .lecturer-course .btn-save {
+    border: 0;
+    background-color: rgb(119, 234, 219);
+    color: white;
+    width: 200px;
+    height: 40px;
+    border-radius: 100px;
+    font-size: 16px;
+}
+.lecturer-course .btn-save-disabled {
+    border: 0;
+    background-color: rgb(180, 180, 180);
+    color: white;
+    width: 200px;
+    height: 40px;
+    border-radius: 100px;
+    font-size: 16px;
+}
+.lecturer-course .btn-save-disabled:focus {
+    box-shadow: none;
+} 
+
+.lecturer-course .tip-cell {
+    width: 100%;
+} */
+
+.lecturer-course .tip {
+    font-size: 20px;
+    margin: 15px 0;
+}
