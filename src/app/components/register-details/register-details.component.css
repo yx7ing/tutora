@@ -84,10 +84,6 @@
     pointer-events: none;
 }
 
-.register-details .btn-skip:hover, .btn-continue:hover, .btn-save:hover {
-    background-color: rgb(110, 223, 207);
-}
-
 .register-details .btn-skip-2 {
     border: 0;
     background-color: rgb(119, 234, 219);
@@ -97,9 +93,6 @@
     border-radius: 100px;
     font-size: 16px;
     margin: 20px;
-}
-.register-details .btn-skip-2:hover {
-    background-color: rgb(110, 223, 207);
 }
 
 .register-details .btn-save, .btn-save-disabled {

@@ -52,6 +52,7 @@ export class TutorApplyApplicationComponent implements OnInit {
         email: this.data.user.email,
         name: this.data.user.name,
         lecturer: this.data.vacancy.lecturerEmail,
+        lecturerName: this.data.vacancy.lecturerName,
         course: this.data.vacancy.course,
         mark: mark,
         tutExp: tutExpYes ? "Y" : "N",
@@ -59,7 +60,9 @@ export class TutorApplyApplicationComponent implements OnInit {
         comments: comments,
         timePref: timePref,
         status: "pending",
-        active: true
+        active: true,
+        interview: "",
+        interviewStatus: ""
       }
       this.fbSrv.submitApplication(application);
       this.dialogRef.close();
