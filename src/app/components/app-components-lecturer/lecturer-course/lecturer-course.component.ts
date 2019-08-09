@@ -38,6 +38,9 @@ export class LecturerCourseComponent implements OnInit {
   dataSourceRejected;
 
   @ViewChild("sortPending", {static: true}) sortPending: MatSort;
+  @ViewChild("sortAccepted", {static: true}) sortAccepted: MatSort;
+  @ViewChild("sortShortlisted", {static: true}) sortShortlisted: MatSort;
+  @ViewChild("sortRejected", {static: true}) sortRejected: MatSort;
 
   constructor(
     private router: Router, 
@@ -58,14 +61,14 @@ export class LecturerCourseComponent implements OnInit {
     this.authSrv.getCurrentUser().subscribe(
       response => {
         this.currentUser = response;
+        this.fbSrv.searchClasses(this.currentUser.email, this.course.course);
       }
     );
-
-    this.cuSrv.searchClasses(this.course.course).subscribe(
+    this.fbSrv.getClasses().subscribe(
       response => {
         this.classes = response;
       }
-    );
+    )
 
     this.fbSrv.getLecturerVacancy().subscribe(
       response => {
@@ -125,6 +128,16 @@ export class LecturerCourseComponent implements OnInit {
         "application": application
       }
     });
+  }
+
+  checkVacancy() {
+    if (this.vacancy) {
+      if (this.vacancy.lecturerEmail == '') {
+        return false;
+      } else {
+        return true;
+      }
+    }
   }
 
 }

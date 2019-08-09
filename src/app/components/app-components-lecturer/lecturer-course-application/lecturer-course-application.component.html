@@ -1,34 +1,87 @@
-Application<br>
-Name: {{data.application.name}}<br>
-Email: {{data.application.email}}<br>
-Mobile: {{tutor.mobile}}<br>
-Mark: {{data.application.mark}}<br>
-Tutoring experience: {{data.application.tutExp}}<br>
-Tutoring experience for this course: {{data.application.courseExp}}<br>
-Time preferences: {{data.application.timePref}}<br>
-Additional comments: {{data.application.comments}}<br><br>
-
-Tutor Details<br>
-CV: {{tutor.cv.downloadUrl}}<br>
-Tutoring experience results:
-<div *ngFor="let tutExp of tutor.tutorExperience">
-    {{tutExp|json}}
+<div class="lecturer-course-application">
+    <table>
+        <tr>
+            <td class="column">
+                <div class="header">Applicaton</div>
+                <label class="lecturer-application-label">Name:</label>
+                <div class="detail-row">{{application.name}}</div>
+                <label class="lecturer-application-label">Email:</label>
+                <div class="detail-row">{{application.email}}</div>
+                <label class="lecturer-application-label">Mobile:</label>
+                <div class="detail-row">{{tutor.mobile}}</div>
+                <label class="lecturer-application-label">Mark:</label>
+                <div class="detail-row">{{application.mark}}</div>
+                <label class="lecturer-application-label">Tutoring experience:</label>
+                <div class="detail-row">{{application.tutExp}}</div>
+                <label class="lecturer-application-label">Tutoring experience for this course:</label>
+                <div class="detail-row">{{application.courseExp}}</div>
+                <label class="lecturer-application-label">Time preferences:</label>
+                <div class="detail-row">{{application.timePref}}</div>
+                <label class="lecturer-application-label">Additional comments:</label>
+                <div class="detail-row">{{application.comments}}</div>
+            </td>
+            <td class="column">
+                <div class="header">Tutor Details</div>
+                <label class="lecturer-application-label">CV:</label>
+                <div class="detail-row">
+                    For all file downloads:<br>
+                    Right click &rarr; Save link as... &rarr; Save as type: All Files &rarr; File name: &lt;filename&gt;.pdf<br>
+                    <a id="downloadcv"><span *ngIf="tutor.cv">{{tutor.cv.fileName}}</span></a>
+                </div>
+                <label class="lecturer-application-label-2">Tutoring experience results:</label>
+                <div class="tutor-experience">
+                    <div class="tutor-experience-inner" *ngFor="let tutExp of tutor.tutorExperience; let i = index;">
+                            <label class="lecturer-application-label">Course</label>
+                            <div class="detail-row">{{tutExp.course}} - {{tutExp.courseName}}</div>
+                            <label class="lecturer-application-label">Lecturer in Charge</label>
+                            <div class="detail-row">{{tutExp.lic}}</div>
+                            <label class="lecturer-application-label">Most Recent Term Taught</label>
+                            <div class="detail-row">{{tutExp.taught}}</div>
+                            <label class="lecturer-application-label">MyExperience (or equivalent) Results</label>
+                            <div class="detail-row">
+                                <a id="{{'tutExpDoc' + i}}">{{tutExp.document.fileName}}</a>
+                            </div>
+                    </div>
+                </div>
+                <label class="lecturer-application-label">Degree:</label>
+                <div class="detail-row">{{tutor.degree}}</div>
+                <label class="lecturer-application-label">Expected year of completion:</label>
+                <div class="detail-row">{{tutor.yoc}}</div>
+                <label class="lecturer-application-label">UOC completed:</label>
+                <div class="detail-row">{{tutor.uoc}}</div>
+                <label class="lecturer-application-label">WAM:</label>
+                <div class="detail-row">{{tutor.wam}}</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="column">
+                <div class="header">Interview</div>
+                <div *ngIf="application.interview==''">
+                    <label class="lecturer-application-label">Set interview time:</label>
+                    <div class="detail-row-2">
+                        <input class="interview-input" placeholder="DD/MM/YY HH:MM" #interviewTime>
+                        <button class="interview-save" (click)="updateInterview(interviewTime.value, 'setTime')">SEND</button>
+                    </div>
+                </div>
+                <div *ngIf="application.interviewStatus=='pending'">
+                    <label class="lecturer-application-label">Interview time:</label>
+                    <div class="detail-row">{{application.interview}}</div>
+                    <button class="application-status-reject" (click)="updateInterview('fail', 'updateStatus')">FAIL</button>
+                    <button class="application-status-accept" (click)="updateInterview('pass', 'updateStatus')">PASS</button>
+                </div>
+                <div *ngIf="application.interviewStatus=='pass' || application.interviewStatus=='fail'">
+                    <label class="lecturer-application-label">Interview time:</label>
+                    <div class="detail-row">{{application.interview}}</div>
+                    <label class="lecturer-application-label">Interview status:</label>
+                    <div class="detail-row">{{application.interviewStatus | titlecase}}</div>
+                </div>
+            </td>
+            <td class="column">
+                <div class="header">Change Status</div>
+                <button class="application-status-reject" (click)="updateStatus('rejected')" mat-dialog-close>REJECT</button>
+                <button class="application-status-accept" (click)="updateStatus('accepted')" mat-dialog-close>ACCEPT</button>
+                <button class="application-status-shortlist" (click)="updateStatus('shortlisted')" mat-dialog-close>SHORTLIST</button>
+            </td>
+        </tr>
+    </table>
 </div>
-<br>
-Degree: {{tutor.degree}}<br>
-Expected year of completion:{{tutor.yoc}}<br>
-UOC completed:{{tutor.uoc}}<br>
-WAM: {{tutor.wam}}<br><br>
-
-Interview<br>
-if no interview details<br>
-<button>Set interivew</button><br><br>
-if interview details<br>
-<button>Pass</button>
-<button>Fail</button>
-<br><br>
-
-Change status<br>
-<button>Accept</button>
-<button>Shortlist</button>
-<button>Reject</button>

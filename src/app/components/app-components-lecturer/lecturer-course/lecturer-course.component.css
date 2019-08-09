@@ -112,8 +112,11 @@
 
 .lecturer-course .small-cell {
     text-align: center !important;
-    width: 150px;
+    width: 12%;
     padding: 0;
+}
+.lecturer-course .big-cell {
+    width: 32%;
 }
 
 .lecturer-course .small-cell .mat-sort-header-container {

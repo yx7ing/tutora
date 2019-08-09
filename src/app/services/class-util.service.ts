@@ -79,12 +79,17 @@ export class ClassUtilService {
         for (let _class of classes) {
           if (!_class.includes(">CRS<") && !_class.includes(">LEC<")) {
             var classModel: ClassModel = {
+              course: course,
               type: _class.match(/>[A-Z]{3}</)[0].substring(1,4),
               session: _class.match(/>[A-Z]\d\d[A-Z]</)[0].substring(1,5),
               id: _class.match(/> \d{4}</)[0].substring(2,6),
               status: _class.match(/>[A-Z][a-z]{3,}?</)[0].substring(1).replace("<",""),
               enrolments: _class.match(/[0-9]+?\/.+?</)[0].replace("<",""),
-              details: _class.match(/<td>(?:(?!<td>).)*?<\/td> <\/tr>$/s)[0].substring(4).replace("<\/td> <\/tr>", "").replace(/<.+?>/gs, "")
+              details: _class.match(/<td>(?:(?!<td>).)*?<\/td> <\/tr>$/s)[0].substring(4).replace("<\/td> <\/tr>", "").replace(/<.+?>/gs, ""),
+              lecturer: "",
+              lecturerName: "",
+              tutor: "",
+              tutorName: ""
             }
             classModels.push(classModel);
           }

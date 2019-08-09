@@ -114,7 +114,7 @@ export class AdminCreateLecturerComponent implements OnInit {
         verticalPosition: 'top',
         panelClass: 'snackbar-red',
         duration: 3000
-      })
+      });
     } else {
       this.createStep = 3;
     }

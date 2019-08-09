@@ -7,13 +7,15 @@ import { BehaviorSubject } from 'rxjs';
 import { UserTutor } from '../models/userTutor';
 import { Vacancy } from '../models/vacancy';
 import { Application } from '../models/application';
+import { ClassUtilService } from './class-util.service';
+import { ClassModel } from '../models/classModel';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
 
-  constructor(private afs: AngularFirestore) { }
+  constructor(private afs: AngularFirestore, private cuSrv: ClassUtilService) { }
 
   register(email: string, name: string, type: string) {
     var user: User = {
@@ -55,6 +57,20 @@ export class FirebaseService {
       courseLinks: courseLinks
     }
     this.afs.collection('usersLecturers').add(userLecturer);
+
+    for (let course of courseLinks) {
+      this.cuSrv.searchClasses(course.course).subscribe(
+        response => {
+          if (response.length > 0) {
+            for (let item of response) {
+              item.lecturer = email;
+              item.lecturerName = name;
+              this.afs.collection('classes').add(item);
+            }
+          }
+        }
+      )
+    }
   }
 
   lecturers: BehaviorSubject<UserLecturer[]> = new BehaviorSubject<UserLecturer[]>([]);
@@ -187,10 +203,25 @@ export class FirebaseService {
         }
         this.applicationsByCourse.next(applications);
       }
-    )
+    );
   }
   getApplicationsByCourse() {
     return this.applicationsByCourse;
+  }
+
+  application: BehaviorSubject<Application> = new BehaviorSubject<Application>(null);
+  searchApplication(tutorEmail: string, course: string) {
+    this.afs.collection('applications', ref => ref
+    .where('course', '==', course)
+    .where('email', '==', tutorEmail))
+    .snapshotChanges().subscribe(
+      response => {
+        this.application.next(response[0].payload.doc.data() as Application)
+      }
+    );
+  }
+  getApplication() {
+    return this.application;
   }
 
   seeNotification(email: string, course: string) {
@@ -202,10 +233,59 @@ export class FirebaseService {
         for (let courseLink of courseLinks) {
           if (courseLink.course == course) {
             courseLink.notification = false;
-            this.afs.collection('usersLecturers').doc(response[0].payload.doc.id).update({'courseLinks': courseLinks})
+            this.afs.collection('usersLecturers').doc(response[0].payload.doc.id).update({'courseLinks': courseLinks});
           }
         }
       }  
     );
+  }
+
+  updateInterview(tutorEmail: string, course: string, update: string) {
+    this.afs.collection('applications', ref => ref
+    .where('course', '==', course)
+    .where('email', '==', tutorEmail))
+    .snapshotChanges().subscribe(
+      response => {
+        if (update == "pass" || update == "fail") {
+          this.afs.collection('applications').doc(response[0].payload.doc.id).update({'interviewStatus': update});
+        } else {
+          this.afs.collection('applications').doc(response[0].payload.doc.id).update({'interview': update, 'interviewStatus': 'pending'});
+        }
+      }
+    );
+  }
+
+  updateApplicationStatus(tutorEmail: string, course: string, status: string) {
+    var runOnce = 0;
+    this.afs.collection('applications', ref => ref
+    .where('course', '==', course)
+    .where('email', '==', tutorEmail))
+    .snapshotChanges().subscribe(
+      response => {
+        if (runOnce == 0) {
+          this.afs.collection('applications').doc(response[0].payload.doc.id).update({'status': status});
+        }
+        runOnce++;
+      }
+    );
+  }
+
+  classes: BehaviorSubject<ClassModel[]> = new BehaviorSubject<ClassModel[]>([]);
+  searchClasses(email: string, course: string) {
+    this.afs.collection('classes', ref => ref
+    .where('course', '==', course)
+    .where('lecturer', '==', email))
+    .snapshotChanges().subscribe(
+      response => {
+        var classes: ClassModel[] = [];
+        for (let item of response) {
+          classes.push(item.payload.doc.data() as ClassModel);
+        }
+        this.classes.next(classes);
+      }
+    );
+  }
+  getClasses() {
+    return this.classes;
   }
 }
