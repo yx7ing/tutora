@@ -12,6 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { LecturerCourseApplicationComponent } from 'src/app/components/app-components-lecturer/lecturer-course-application/lecturer-course-application.component';
+import { LecturerCourseAssignComponent } from '../lecturer-course-assign/lecturer-course-assign.component';
 
 @Component({
   selector: 'app-lecturer-course',
@@ -24,14 +25,13 @@ export class LecturerCourseComponent implements OnInit {
   @Input() course: CourseLink;
   currentUser: User;
   vacancy: Vacancy = null;
-  classes: ClassModel[] = [];
   applications: Application[] = [];
   applicationsPending: Application[] = [];
   applicationsAccepted: Application[] = [];
   applicationsShortlisted: Application[] = [];
   applicationsRejected: Application[] = [];
 
-  displayedColumns: string[] = ['name', 'email', 'mark', 'tutExp', 'courseExp'];
+  displayedColumns: string[] = ['name', 'email', 'mark', 'tutExp', 'courseExp', 'intTime', 'intStatus'];
   dataSourcePending;
   dataSourceAccepted;
   dataSourceShortlisted;
@@ -41,6 +41,11 @@ export class LecturerCourseComponent implements OnInit {
   @ViewChild("sortAccepted", {static: true}) sortAccepted: MatSort;
   @ViewChild("sortShortlisted", {static: true}) sortShortlisted: MatSort;
   @ViewChild("sortRejected", {static: true}) sortRejected: MatSort;
+
+  classes: ClassModel[] = [];
+  classColumns: string[] = ['type', 'enrolments', 'details', 'tutor'];
+  dataSourceClasses;
+  @ViewChild("sortClasses", {static: true}) sortClasses: MatSort;
 
   constructor(
     private router: Router, 
@@ -61,12 +66,15 @@ export class LecturerCourseComponent implements OnInit {
     this.authSrv.getCurrentUser().subscribe(
       response => {
         this.currentUser = response;
-        this.fbSrv.searchClasses(this.currentUser.email, this.course.course);
+        if (this.course) {
+          this.fbSrv.searchClasses(this.currentUser.email, this.course.course);
+        }
       }
     );
     this.fbSrv.getClasses().subscribe(
       response => {
         this.classes = response;
+        this.dataSourceClasses = new MatTableDataSource(this.classes);
       }
     )
 
@@ -76,7 +84,9 @@ export class LecturerCourseComponent implements OnInit {
       }
     );
 
-    this.fbSrv.searchApplicationsByCourse(this.course.course);
+    if (this.course) {
+      this.fbSrv.searchApplicationsByCourse(this.course.course);
+    }
     this.fbSrv.getApplicationsByCourse().subscribe(
       response => {
         this.applications = response;
@@ -103,8 +113,11 @@ export class LecturerCourseComponent implements OnInit {
         this.dataSourcePending = new MatTableDataSource(this.applicationsPending);
         this.dataSourcePending.sort = this.sortPending;
         this.dataSourceAccepted = new MatTableDataSource(this.applicationsAccepted);
+        this.dataSourceAccepted.sort = this.sortAccepted;
         this.dataSourceShortlisted = new MatTableDataSource(this.applicationsShortlisted);
+        this.dataSourceShortlisted.sort = this.sortShortlisted;
         this.dataSourceRejected = new MatTableDataSource(this.applicationsRejected);
+        this.dataSourceRejected.sort = this.sortRejected;
       }
     )
   }
@@ -122,7 +135,7 @@ export class LecturerCourseComponent implements OnInit {
     this.fbSrv.createVacancy(vacancy);
   }
 
-  selectCourse(application: Application) {
+  selectApplication(application: Application) {
     this.dialog.open(LecturerCourseApplicationComponent, {
       data: {
         "application": application
@@ -138,6 +151,16 @@ export class LecturerCourseComponent implements OnInit {
         return true;
       }
     }
+  }
+
+  selectClass(_class: ClassModel) {
+    this.dialog.open(LecturerCourseAssignComponent, {
+      data: {
+        'class': _class,
+        'acceptedTutors': this.applicationsAccepted,
+        'vacancy': this.vacancy
+      }
+    })
   }
 
 }

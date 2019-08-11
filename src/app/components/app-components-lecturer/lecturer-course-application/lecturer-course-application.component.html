@@ -7,8 +7,6 @@
                 <div class="detail-row">{{application.name}}</div>
                 <label class="lecturer-application-label">Email:</label>
                 <div class="detail-row">{{application.email}}</div>
-                <label class="lecturer-application-label">Mobile:</label>
-                <div class="detail-row">{{tutor.mobile}}</div>
                 <label class="lecturer-application-label">Mark:</label>
                 <div class="detail-row">{{application.mark}}</div>
                 <label class="lecturer-application-label">Tutoring experience:</label>
@@ -24,8 +22,7 @@
                 <div class="header">Tutor Details</div>
                 <label class="lecturer-application-label">CV:</label>
                 <div class="detail-row">
-                    For all file downloads:<br>
-                    Right click &rarr; Save link as... &rarr; Save as type: All Files &rarr; File name: &lt;filename&gt;.pdf<br>
+                    For all file downloads: Right click &rarr; Save link as... &rarr; Save as type: All Files &rarr; File name: &lt;filename&gt;.pdf<br>
                     <a id="downloadcv"><span *ngIf="tutor.cv">{{tutor.cv.fileName}}</span></a>
                 </div>
                 <label class="lecturer-application-label-2">Tutoring experience results:</label>

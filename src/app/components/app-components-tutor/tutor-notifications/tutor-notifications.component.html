@@ -1,0 +1,11 @@
+<div class="tutor-notifications">
+    <div class="container">
+        <div class="header">
+            Notifications
+        </div>
+        <div *ngFor="let notification of notifications" class="notification">
+            {{notification.notification.timestamp}}&nbsp;&nbsp;&nbsp;&nbsp;
+            {{notification.notification.message}}
+        </div>
+    </div>
+</div>

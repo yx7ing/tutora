@@ -37,18 +37,6 @@ export class AdminHomeComponent implements OnInit {
     )
   }
 
-  logout() {
-    this.authSrv.logout()
-    .then(
-      res => {
-        this.router.navigate(['/login']);
-      }, 
-      error => {
-        console.log("Logout error", error);
-      }
-    );
-  }
-
   openCreateLecturerDialog() {
     const dialogRef = this.dialog.open(AdminCreateLecturerComponent, {
       width: '30vw',

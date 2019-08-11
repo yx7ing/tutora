@@ -122,7 +122,7 @@
 .lecturer-course .small-cell .mat-sort-header-container {
     display:flex;
     justify-content:center;
-  }
+}
 
 /* .lecturer-course .btn-save {
     border: 0;
@@ -153,4 +153,12 @@
 .lecturer-course .tip {
     font-size: 20px;
     margin: 15px 0;
+}
+
+.lecturer-course .class-cell {
+    text-align: center;
+}
+.lecturer-course .class-cell .mat-sort-header-container {
+    display:flex;
+    justify-content:center;
 }

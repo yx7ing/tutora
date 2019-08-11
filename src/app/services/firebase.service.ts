@@ -9,6 +9,7 @@ import { Vacancy } from '../models/vacancy';
 import { Application } from '../models/application';
 import { ClassUtilService } from './class-util.service';
 import { ClassModel } from '../models/classModel';
+import { Notification } from '../models/notification';
 
 @Injectable({
   providedIn: 'root'
@@ -99,7 +100,9 @@ export class FirebaseService {
     this.afs.collection('usersTutors', ref => ref
     .where('email', '==', email)).snapshotChanges().subscribe(
       response => {
-        this.tutor.next(response[0].payload.doc.data() as UserTutor);
+        if (response.length > 0) {
+          this.tutor.next(response[0].payload.doc.data() as UserTutor);
+        }
       }
     )
   }
@@ -149,6 +152,23 @@ export class FirebaseService {
     return this.vacancies;
   }
 
+  linkVacancyToCourseLink(course: string) {
+    var vacancy: BehaviorSubject<Vacancy> = new BehaviorSubject<Vacancy>(null);
+    this.afs.collection('vacancies' , ref => ref
+    .where('course', '==', course)).snapshotChanges().subscribe(
+      response => {
+        if (response.length > 0) {
+          vacancy.next(response[0].payload.doc.data() as Vacancy);
+        } else {
+          vacancy.next({
+            lecturerEmail: "", lecturerName: "", course: "", courseName: "", vacancies: 0, filled: 0, active: false
+          });
+        }
+      }
+    )
+    return vacancy;
+  }
+
   submitApplicationResponse: BehaviorSubject<string> = new BehaviorSubject<string>("")
   submitApplication(application: Application) {
     this.afs.collection('applications').add(application).then(
@@ -175,7 +195,7 @@ export class FirebaseService {
     return this.submitApplicationResponse;
   }
 
-  applications: BehaviorSubject<Application[]> = new BehaviorSubject<Application[]>([]);
+  applications: BehaviorSubject<Application[]> = new BehaviorSubject<Application[]>(null);
   searchApplications(email: string) {
     this.afs.collection('applications', ref => ref
     .where('email', '==', email)).snapshotChanges().subscribe(
@@ -225,31 +245,55 @@ export class FirebaseService {
   }
 
   seeNotification(email: string, course: string) {
+    var runOnce = 0;
     this.afs.collection('usersLecturers', ref => ref
     .where('email', '==', email)).snapshotChanges().subscribe(
       response => {
-        var lecturer = response[0].payload.doc.data() as UserLecturer;
-        var courseLinks = lecturer.courseLinks;
-        for (let courseLink of courseLinks) {
-          if (courseLink.course == course) {
-            courseLink.notification = false;
-            this.afs.collection('usersLecturers').doc(response[0].payload.doc.id).update({'courseLinks': courseLinks});
+        if (runOnce == 0) {
+          var lecturer = response[0].payload.doc.data() as UserLecturer;
+          var courseLinks = lecturer.courseLinks;
+          for (let courseLink of courseLinks) {
+            if (courseLink.course == course) {
+              courseLink.notification = false;
+              this.afs.collection('usersLecturers').doc(response[0].payload.doc.id).update({'courseLinks': courseLinks});
+            }
           }
+          runOnce++;
         }
       }  
     );
   }
 
-  updateInterview(tutorEmail: string, course: string, update: string) {
+  updateInterview(tutorEmail: string, course: string, update: string, lecturerName: string) {
+    var runOnce = 0;
     this.afs.collection('applications', ref => ref
     .where('course', '==', course)
     .where('email', '==', tutorEmail))
     .snapshotChanges().subscribe(
       response => {
-        if (update == "pass" || update == "fail") {
-          this.afs.collection('applications').doc(response[0].payload.doc.id).update({'interviewStatus': update});
-        } else {
-          this.afs.collection('applications').doc(response[0].payload.doc.id).update({'interview': update, 'interviewStatus': 'pending'});
+        if (runOnce == 0) {
+          if (update == "pass" || update == "fail") {
+            this.afs.collection('applications').doc(response[0].payload.doc.id).update({'interviewStatus': update});
+            if (update == "pass") {
+              this.notify(
+                tutorEmail,
+                "Congratulations! You have passed your interview with " + lecturerName + " for " + course + "."
+              );
+            }
+            if (update == "fail") {
+              this.notify(
+                tutorEmail,
+                "Unfortunately, you did not pass your interview with " + lecturerName + " for " + course + ". Don't give up! The right class for you is waiting out there."
+              );
+            }
+          } else {
+            this.afs.collection('applications').doc(response[0].payload.doc.id).update({'interview': update, 'interviewStatus': 'pending'});
+            this.notify(
+              tutorEmail,
+              lecturerName + " has set your interview for " + update + "."
+            );
+          }
+          runOnce++;
         }
       }
     );
@@ -264,8 +308,8 @@ export class FirebaseService {
       response => {
         if (runOnce == 0) {
           this.afs.collection('applications').doc(response[0].payload.doc.id).update({'status': status});
+          runOnce++;
         }
-        runOnce++;
       }
     );
   }
@@ -287,5 +331,108 @@ export class FirebaseService {
   }
   getClasses() {
     return this.classes;
+  }
+
+  updateClass(_class: ClassModel, email: string, name: string, vacancy: Vacancy, currentTutor: string) {
+    var runOnce = 0;
+    this.afs.collection('classes', ref => ref
+    .where('course', '==', _class.course)
+    .where('id', '==', _class.id))
+    .snapshotChanges().subscribe(
+      response => {
+        if (runOnce == 0) {
+          this.afs.collection('classes').doc(response[0].payload.doc.id).update({'tutor': email, 'tutorName': name});
+          runOnce++;
+        }
+      }
+    );
+
+    var runUpdateVacancyOnce = 0;
+    if (email != "" && currentTutor != "") {
+      // do nothing
+    } else {
+      this.afs.collection('vacancies', ref => ref
+      .where('course', '==', vacancy.course))
+      .snapshotChanges().subscribe(
+        response => {
+          if (runUpdateVacancyOnce == 0) {
+            var _vacancy: Vacancy = response[0].payload.doc.data() as Vacancy;
+            if (currentTutor == "") {
+              this.afs.collection('vacancies').doc(response[0].payload.doc.id).update({'filled': _vacancy.filled+1});
+            } else if (email == "") {
+              this.afs.collection('vacancies').doc(response[0].payload.doc.id).update({'filled': _vacancy.filled-1});
+            }
+            runUpdateVacancyOnce++;
+          }
+        }
+      );
+    }
+  }
+
+  tutorClasses: BehaviorSubject<ClassModel[]> = new BehaviorSubject<ClassModel[]>(null);
+  searchTutorClasses(email: string) {
+    this.afs.collection('classes', ref => ref
+    .where('tutor', '==', email))
+    .snapshotChanges().subscribe(
+      response => {
+        var classes: ClassModel[] = [];
+        for (let item of response) {
+          classes.push(item.payload.doc.data() as ClassModel);
+        }
+        this.tutorClasses.next(classes);
+      }
+    );
+  }
+  getTutorClasses() {
+    return this.tutorClasses;
+  }
+
+  notify(email: string, message: string) {
+    var today = new Date();
+    var timestamp = today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear().toString().substr(2)+" "+today.getHours()+":";
+    if (today.getMinutes() < 10) {
+      timestamp += "0";
+    }
+    timestamp += today.getMinutes()+":";
+    if (today.getSeconds() < 10) {
+      timestamp += "0";
+    }
+    timestamp += today.getSeconds();
+    var notification: Notification = {
+      email: email,
+      message: message,
+      timestamp: timestamp,
+      seen: false
+    }
+    this.afs.collection('notifications').add(notification);
+  }
+
+  notifications: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  searchNotifications(email: string) {
+    this.afs.collection('notifications', ref => ref
+    .where('email', '==', email))
+    .snapshotChanges().subscribe(
+      response => {
+        var notifications: any[] = [];
+        for (let item of response) {
+          var notification = {
+            notification: item.payload.doc.data() as Notification,
+            id : item.payload.doc.id
+          }
+          notifications.push(notification);
+        }
+        this.notifications.next(notifications);
+      }
+    );
+  }
+  getNotifications() {
+    return this.notifications;
+  }
+
+  seeTutorNotifications(notifications: any[]) {
+    for (let notification of notifications) {
+      this.afs.collection('notifications').doc(notification.id).update({seen: true});
+    }
+    console.log('seen')
   }
 }

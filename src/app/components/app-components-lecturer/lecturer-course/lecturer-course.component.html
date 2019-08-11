@@ -1,6 +1,6 @@
 <div class="lecturer-course">
     <div class="container">
-        <div class="header">
+        <div class="header" *ngIf="course">
             {{course.course}} - {{course.courseName}}
         </div>
         <mat-tab-group mat-align-tabs="center" mat-stretch-tabs>
@@ -43,9 +43,17 @@
                                 <th mat-header-cell *matHeaderCellDef class="small-cell" mat-sort-header> Tutored this<br>course before </th>
                                 <td mat-cell *matCellDef="let application" class="small-cell"> {{application.courseExp}} </td>
                             </ng-container>
+                            <ng-container matColumnDef="intTime">
+                                <th mat-header-cell *matHeaderCellDef class="small-cell" mat-sort-header> Interview Time </th>
+                                <td mat-cell *matCellDef="let application" class="small-cell"> {{application.interview}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="intStatus">
+                                <th mat-header-cell *matHeaderCellDef class="small-cell" mat-sort-header> Interview Status </th>
+                                <td mat-cell *matCellDef="let application" class="small-cell"> {{application.interviewStatus | titlecase}} </td>
+                            </ng-container>
                             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                             <tr mat-row *matRowDef="let row; let i = index; columns: displayedColumns;"
-                                [ngClass]="{'highlight': selectedRowIndex == i}" (click)="selectCourse(row)"></tr>
+                                [ngClass]="{'highlight': selectedRowIndex == i}" (click)="selectApplication(row)"></tr>
                         </table>
                         <div class="subheading">Accepted</div>
                         <table mat-table [dataSource]="dataSourceAccepted" class="table-actual" #sortAccepted="matSort" matSort [hidden]="applicationsAccepted.length==0">
@@ -69,9 +77,17 @@
                                 <th mat-header-cell *matHeaderCellDef class="small-cell" mat-sort-header> Tutored this<br>course before </th>
                                 <td mat-cell *matCellDef="let application" class="small-cell"> {{application.courseExp}} </td>
                             </ng-container>
+                            <ng-container matColumnDef="intTime">
+                                <th mat-header-cell *matHeaderCellDef class="small-cell" mat-sort-header> Interview Time </th>
+                                <td mat-cell *matCellDef="let application" class="small-cell"> {{application.interview}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="intStatus">
+                                <th mat-header-cell *matHeaderCellDef class="small-cell" mat-sort-header> Interview Status </th>
+                                <td mat-cell *matCellDef="let application" class="small-cell"> {{application.interviewStatus | titlecase}} </td>
+                            </ng-container>
                             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                             <tr mat-row *matRowDef="let row; let i = index; columns: displayedColumns;"
-                                [ngClass]="{'highlight': selectedRowIndex == i}" (click)="selectCourse(row)"></tr>
+                                [ngClass]="{'highlight': selectedRowIndex == i}" (click)="selectApplication(row)"></tr>
                         </table>
                         <div class="subheading">Shortlisted</div>
                         <table mat-table [dataSource]="dataSourceShortlisted" class="table-actual" #sortShortlisted="matSort" matSort [hidden]="applicationsShortlisted.length==0">
@@ -95,9 +111,17 @@
                                 <th mat-header-cell *matHeaderCellDef class="small-cell" mat-sort-header> Tutored this<br>course before </th>
                                 <td mat-cell *matCellDef="let application" class="small-cell"> {{application.courseExp}} </td>
                             </ng-container>
+                            <ng-container matColumnDef="intTime">
+                                <th mat-header-cell *matHeaderCellDef class="small-cell" mat-sort-header> Interview Time </th>
+                                <td mat-cell *matCellDef="let application" class="small-cell"> {{application.interview}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="intStatus">
+                                <th mat-header-cell *matHeaderCellDef class="small-cell" mat-sort-header> Interview Status </th>
+                                <td mat-cell *matCellDef="let application" class="small-cell"> {{application.interviewStatus | titlecase}} </td>
+                            </ng-container>
                             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                             <tr mat-row *matRowDef="let row; let i = index; columns: displayedColumns;"
-                                [ngClass]="{'highlight': selectedRowIndex == i}" (click)="selectCourse(row)"></tr>
+                                [ngClass]="{'highlight': selectedRowIndex == i}" (click)="selectApplication(row)"></tr>
                         </table>
                         <div class="subheading">Rejected</div>
                         <table mat-table [dataSource]="dataSourceRejected" class="table-actual" #sortRejected="matSort" matSort [hidden]="applicationsRejected.length==0">
@@ -121,22 +145,44 @@
                                 <th mat-header-cell *matHeaderCellDef class="small-cell" mat-sort-header> Tutored this<br>course before </th>
                                 <td mat-cell *matCellDef="let application" class="small-cell"> {{application.courseExp}} </td>
                             </ng-container>
+                            <ng-container matColumnDef="intTime">
+                                <th mat-header-cell *matHeaderCellDef class="small-cell" mat-sort-header> Interview Time </th>
+                                <td mat-cell *matCellDef="let application" class="small-cell"> {{application.interview}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="intStatus">
+                                <th mat-header-cell *matHeaderCellDef class="small-cell" mat-sort-header> Interview Status </th>
+                                <td mat-cell *matCellDef="let application" class="small-cell"> {{application.interviewStatus | titlecase}} </td>
+                            </ng-container>
                             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                             <tr mat-row *matRowDef="let row; let i = index; columns: displayedColumns;"
-                                [ngClass]="{'highlight': selectedRowIndex == i}" (click)="selectCourse(row)"></tr>
+                                [ngClass]="{'highlight': selectedRowIndex == i}" (click)="selectApplication(row)"></tr>
                         </table>
                     </div>
                 </div>
             </mat-tab>
             <mat-tab label="Classes">
-                <div *ngFor="let class of classes">
-                    Type: {{class.type}}<br>
-                    Session: {{class.session}}<br>
-                    ID: {{class.id}}<br>
-                    Status: {{class.status}}<br>
-                    Enrolments: {{class.enrolments}}<br>
-                    Details: {{class.details}}<br><br>
-                </div>
+                <br>
+                <table mat-table [dataSource]="dataSourceClasses" class="table-actual" #sortClasses="matSort" matSort [hidden]="classes.length==0">
+                    <ng-container matColumnDef="type">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="class-cell"> Class Type </th>
+                        <td mat-cell *matCellDef="let class" class="class-cell"> {{class.type}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="enrolments">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="class-cell"> Enrolments </th>
+                        <td mat-cell *matCellDef="let class" class="class-cell"> {{class.enrolments}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="details">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="class-cell"> Time/Location </th>
+                        <td mat-cell *matCellDef="let class" class="class-cell"> {{class.details}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="tutor">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="class-cell"> Assigned Tutor </th>
+                        <td mat-cell *matCellDef="let class" class="class-cell"> {{class.tutorName}} </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="classColumns"></tr>
+                    <tr mat-row *matRowDef="let row; let i = index; columns: classColumns;"
+                        [ngClass]="{'highlight': selectedRowIndex == i}" (click)="selectClass(row)"></tr>
+                </table>
             </mat-tab>
         </mat-tab-group>
     </div>
