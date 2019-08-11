@@ -26,10 +26,18 @@
                 </table>
             </td>
             <td class="focus-window">
-                {{lecturers[selectedRowIndex] | json}}
+                <div class="header-2">
+                    Courses
+                </div>
+                <div *ngIf="selectedRowIndex>-1">
+                    <div *ngFor="let course of lecturers[selectedRowIndex].courseLinks" class="course-container">
+                        <label class="admin-label">Course:</label>
+                        <div class="detail-row">{{course.course}}</div>
+                        <label class="admin-label">Name:</label>
+                        <div class="detail-row">{{course.courseName}}</div>
+                    </div>
+                </div>
             </td>
         </tr> </table>
     </div>
-    admin login successful
-    <button (click)="logout()">Log out</button>
 </div>

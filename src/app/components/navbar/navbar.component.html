@@ -1,4 +1,7 @@
 <div class="navbar" *ngIf="user.type=='admin'">
+    <div class="logout">
+        <div class="navigation-item-logout" (click)="logout()">Log Out</div>
+    </div>
     <div class="logo">Tutora</div>
     <div class="navigation">
         <table class="navigation-item-profile">
@@ -7,12 +10,13 @@
                 <td class="navigation-name">{{name}}</td>
             </tr>
         </table>
-        <!-- <div class="divider"></div>
-        <div class="navigation-item">Lecturers</div> -->
     </div>
 </div>
 
 <div class="navbar" *ngIf="user.type=='lecturer'">
+    <div class="logout">
+        <div class="navigation-item-logout" (click)="logout()">Log Out</div>
+    </div>
     <div class="logo">Tutora</div>
     <div class="navigation">
         <table class="navigation-item-profile">
@@ -23,12 +27,13 @@
         </table>
         <div class="divider"></div>
         <div class="navigation-item" routerLink="/crelture/home">Courses</div>
-        <div class="divider"></div>
-        <div class="navigation-item">Applications</div>
     </div>
 </div>
 
 <div class="navbar" *ngIf="user.type=='tutor'">
+    <div class="logout">
+        <div class="navigation-item-logout" (click)="logout()">Log Out</div>
+    </div>
     <div class="logo">Tutora</div>
     <div class="navigation">
         <table class="navigation-item-profile-clickable" routerLink="/trout/profile">
@@ -41,5 +46,29 @@
         <div class="navigation-item" routerLink="/trout/home">Home</div>
         <div class="divider"></div>
         <div class="navigation-item" routerLink="/trout/apply">Apply</div>
+        <div class="divider"></div>
+        <div class="navigation-item-2" [matMenuTriggerFor]="appMenu" (menuClosed)="seeNotifs()">
+            <i class="fas fa-exclamation-circle"
+            [ngClass]="newNotifications.length>0 ? 'notification-alert' : 'notification'"></i>
+        </div>
     </div>
 </div>
+
+<mat-menu #appMenu="matMenu" xPosition="before">
+    <div *ngIf="newNotifications.length==0"style="
+        color: black;
+        padding: 8px 20px;
+        border-bottom: 1px solid rgb(102, 212, 195);
+    ">
+        You do not have any new notifications.
+    </div>
+    <div *ngFor="let notification of newNotifications" (click)="$event.stopPropagation()" style="
+        color: black;
+        padding: 8px 20px;
+        border-bottom: 1px solid rgb(102, 212, 195);
+    ">
+        {{notification.notification.timestamp}}<br>
+        {{notification.notification.message}}
+    </div>
+    <div mat-menu-item routerLink="/trout/notif" style="color: blue; font-size: 15px;">See all notifications</div>
+</mat-menu>

@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/core/auth.service';
 import { Router } from '@angular/router';
 import { Application } from 'src/app/models/application';
 import { User } from 'src/app/models/user';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { ClassModel } from 'src/app/models/classModel';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-tutor-home',
@@ -14,10 +16,16 @@ import { MatTableDataSource } from '@angular/material/table';
 export class TutorHomeComponent implements OnInit {
 
   currentUser: User;
+  classes: ClassModel[];
   applications: Application[];
 
-  displayedColumns: string[] = ['course', 'lic', 'licemail', 'inttime', 'intstatus', 'status'];
-  dataSource;
+  classColumns: string[] = ['course', 'type', 'details', 'lic'];
+  classDataSource;
+  @ViewChild("sortClasses", {static: true}) sortClasses: MatSort; 
+
+  applicationColumns: string[] = ['course', 'lic', 'licemail', 'inttime', 'intstatus', 'status'];
+  applicationDataSource;
+  @ViewChild("sortApplications", {static: true}) sortApplications: MatSort;
 
   constructor(private authSrv: AuthService, private router: Router, private fbSrv: FirebaseService) { }
 
@@ -26,27 +34,48 @@ export class TutorHomeComponent implements OnInit {
       response => {
         this.currentUser = response;
         this.fbSrv.searchApplications(response.email);
+        this.fbSrv.searchTutorClasses(response.email);
       }
     );
 
     this.fbSrv.getApplications().subscribe(
       response => {
         this.applications = response;
-        this.dataSource = new MatTableDataSource(this.applications);
+        this.applicationDataSource = new MatTableDataSource(this.applications);
+        this.applicationDataSource.sort = this.sortApplications;
       }
     );
+
+    this.fbSrv.getTutorClasses().subscribe(
+      response => {
+        this.classes = response;
+        this.classDataSource = new MatTableDataSource(this.classes);
+        this.classDataSource.sort = this.sortClasses;
+      }
+    )
   }
 
-  logout() {
-    this.authSrv.logout()
-    .then(
-      res => {
-        this.router.navigate(['/login']);
-      }, 
-      error => {
-        console.log("Logout error", error);
+  checkClassesLength() {
+    if (this.classes == null) {
+      return true;
+    } else {
+      if (this.classes.length == 0) {
+        return true;
+      } else {
+        return false;
       }
-    );
+    }
+  }
+  checkApplicationsLength() {
+    if (this.applications == null) {
+      return true;
+    } else {
+      if (this.applications.length == 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   }
 
 }

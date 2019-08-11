@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestoreModule } from '@angular/fire/firestore'
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorage } from '@angular/fire/storage';
 
@@ -22,6 +23,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
+import { MatMenuModule } from '@angular/material/menu';
 
 // app files
 import { environment } from '../environments/environment';
@@ -51,6 +53,8 @@ import { LecturerCourseComponent } from './components/app-components-lecturer/le
 import { TutorApplyComponent } from './components/app-components-tutor/tutor-apply/tutor-apply.component';
 import { TutorApplyApplicationComponent } from './components/app-components-tutor/tutor-apply-application/tutor-apply-application.component';
 import { LecturerCourseApplicationComponent } from './components/app-components-lecturer/lecturer-course-application/lecturer-course-application.component';
+import { LecturerCourseAssignComponent } from './components/app-components-lecturer/lecturer-course-assign/lecturer-course-assign.component';
+import { TutorNotificationsComponent } from './components/app-components-tutor/tutor-notifications/tutor-notifications.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -76,7 +80,8 @@ const appRoutes: Routes = [
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: 'home', component: TutorHomeComponent},
       {path: 'profile', component: TutorProfileComponent},
-      {path: 'apply', component: TutorApplyComponent}
+      {path: 'apply', component: TutorApplyComponent},
+      {path: 'notif', component: TutorNotificationsComponent}
    ]
   }
 ]
@@ -102,7 +107,9 @@ const appRoutes: Routes = [
     LecturerCourseComponent,
     TutorApplyComponent,
     TutorApplyApplicationComponent,
-    LecturerCourseApplicationComponent
+    LecturerCourseApplicationComponent,
+    LecturerCourseAssignComponent,
+    TutorNotificationsComponent
   ],
   imports: [
     BrowserModule,
@@ -113,6 +120,7 @@ const appRoutes: Routes = [
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    AngularFirestoreModule,
 
     BrowserAnimationsModule,
     MatSnackBarModule,
@@ -122,7 +130,8 @@ const appRoutes: Routes = [
     MatInputModule,
     MatTabsModule,
     MatTooltipModule,
-    MatSortModule
+    MatSortModule,
+    MatMenuModule
   ],
   providers: [
     AngularFirestore,
@@ -135,7 +144,8 @@ const appRoutes: Routes = [
   entryComponents: [
     AdminCreateLecturerComponent,
     TutorApplyApplicationComponent,
-    LecturerCourseApplicationComponent
+    LecturerCourseApplicationComponent,
+    LecturerCourseAssignComponent
   ],
   bootstrap: [AppComponent]
 })

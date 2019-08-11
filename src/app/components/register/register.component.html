@@ -2,7 +2,6 @@
     <div class="container">
         <div class="logo">Tutora</div>
         <input type="text" class="register-input" #name placeholder="Name"
-            [ngClass]="registerNameStatus=='failed' ? 'register-input-failed' : ''"
             (keyup.enter)="register(email.value, name.value, password.value)">
         <input type="text" class="register-input" #email placeholder="Email (MUST use zID email if UNSW)"
             [ngClass]="registerEmailStatus=='failed' ? 'register-input-failed' : ''"

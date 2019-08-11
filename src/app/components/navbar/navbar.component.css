@@ -66,3 +66,32 @@
     height: 28px;
     margin: 10px 0;
 }
+
+.navbar .logout {
+    float: left;
+    margin-left: 60px;
+    height: 50px;
+}
+
+.navbar .navigation-item-logout {
+    font-size: 16px;
+    padding: 13px 10px 15px 10px;
+}
+.navbar .navigation-item-logout:hover {
+    background-color: rgb(110, 223, 207);
+}
+
+.navbar .navigation-item-2 {
+    font-size: 16px;
+    padding: 13px 15px 21px 15px;
+}
+.navbar .navigation-item-2:hover {
+    cursor: pointer;
+}
+
+.navbar .notification {
+    color: rgb(178, 226, 219);
+}
+.navbar .notification-alert {
+    color: red;
+}

@@ -7,23 +7,30 @@
         <table mat-table [dataSource]="dataSource" class="table-actual">
             <ng-container matColumnDef="course">
                 <th mat-header-cell *matHeaderCellDef> Course </th>
-                <td mat-cell *matCellDef="let course"> {{course.course}} </td>
+                <td mat-cell *matCellDef="let row"> {{row[0].course}} </td>
             </ng-container>
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef> Name </th>
-                <td mat-cell *matCellDef="let course"> {{course.courseName}} </td>
+                <td mat-cell *matCellDef="let row"> {{row[0].courseName}} </td>
+            </ng-container>
+            <ng-container matColumnDef="vacancies">
+                <th mat-header-cell *matHeaderCellDef> Filled Positions </th>
+                <td mat-cell *matCellDef="let row">
+                    <span *ngIf="row[1]">
+                        <span *ngIf="row[1].vacancies==0">Vacancy not opened</span>
+                        <span *ngIf="row[1].vacancies!=0">{{row[1].filled}}/{{row[1].vacancies}}</span>
+                    </span>
+                </td>
             </ng-container>
             <ng-container matColumnDef="notification">
                 <th mat-header-cell *matHeaderCellDef></th>
-                <td mat-cell *matCellDef="let course">
-                    <i *ngIf="course.notification" class="fas fa-exclamation-circle notification" matTooltip="You have new applications"></i>
+                <td mat-cell *matCellDef="let row">
+                    <i *ngIf="row[0].notification" class="fas fa-exclamation-circle notification" matTooltip="You have new applications"></i>
                 </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; let i = index; columns: displayedColumns;"
-                [ngClass]="{'highlight': selectedRowIndex == i}" (click)="selectCourse(row)"></tr>
+                [ngClass]="{'highlight': selectedRowIndex == i}" (click)="selectCourse(row[0])"></tr>
         </table>
     </div>
-    lecturer login successful
-    <button (click)="logout()">Log out</button>
 </div>

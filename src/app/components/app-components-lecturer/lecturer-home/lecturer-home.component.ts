@@ -21,36 +21,61 @@ export class LecturerHomeComponent implements OnInit {
     admin: "",
     courseLinks: []
   };
-  displayedColumns: string[] = ['course', 'name', 'notification'];
+  courses: any[];
+  displayedColumns: string[] = ['course', 'name', 'vacancies', 'notification'];
   dataSource;
 
   ngOnInit() {
     this.authSrv.getCurrentUser().subscribe(
       response => {
-        this.authSrv.setCurrentLecturer(response.email);
+        if (response) {
+          if (response.email) {
+            this.authSrv.setCurrentLecturer(response.email);
+          }
+        }
       }
     )
 
     this.authSrv.getCurrentLecturer().subscribe(
       response => {
         this.lecturer = response;
-        this.dataSource = new MatTableDataSource(this.lecturer.courseLinks);
+        this.courses = this.lecturer.courseLinks;
+        for (let i = 0; i < this.courses.length; i++) {
+          console.log(this.courses[i])
+          if (this.courses[i].length) {
+            this.fbSrv.linkVacancyToCourseLink(this.courses[i][0].course).subscribe(
+              response => {
+                if (this.courses[i].length) {
+                  this.courses[i][1] = response;
+                } else {
+                  this.courses[i] = [
+                    this.courses[i],
+                    response
+                  ];
+                }
+              }
+            );
+          } else {
+            this.fbSrv.linkVacancyToCourseLink(this.courses[i].course).subscribe(
+              response => {
+                if (this.courses[i].length) {
+                  this.courses[i][1] = response;
+                } else {
+                  this.courses[i] = [
+                    this.courses[i],
+                    response
+                  ];
+                }
+              }
+            );
+          }
+        }
+        console.log(this.courses);
+        this.dataSource = new MatTableDataSource(this.courses);
       }
     )
   }
-
-  logout() {
-    this.authSrv.logout()
-    .then(
-      res => {
-        this.router.navigate(['/login']);
-      }, 
-      error => {
-        console.log("Logout error", error);
-      }
-    );
-  }
-
+  
   selectCourse(course: CourseLink) {
     this.fbSrv.seeNotification(this.lecturer.email, course.course);
     this.router.navigate(['/crelture/course'], {state: {course: course}});

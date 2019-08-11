@@ -136,7 +136,9 @@ export class AuthService {
   setCurrentLecturer(email: string) {
     this.afs.collection('usersLecturers', ref => ref.where('email', '==', email)).snapshotChanges().subscribe(
       response => {
-        this.currentLecturer.next(response[0].payload.doc.data() as UserLecturer);
+        if (response.length > 0) {
+          this.currentLecturer.next(response[0].payload.doc.data() as UserLecturer);
+        }
       }
     )
   }

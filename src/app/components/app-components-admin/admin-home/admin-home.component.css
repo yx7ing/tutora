@@ -34,6 +34,7 @@
 
 .admin-home .lecturer-table, .focus-window {
     width: 50%;
+    vertical-align: top;
 }
 
 .admin-home .table-action-bar {
@@ -71,6 +72,7 @@
 .admin-home .table-actual {
     width: 100%;
     background-color: rgb(154, 212, 203);
+    margin-top: 10px;
 }
 
 .admin-home .mat-header-row {
@@ -101,5 +103,31 @@
 }
 
 .admin-home .focus-window {
-    
+    vertical-align: top;
+    padding: 0 30px;
+}
+
+.admin-home .header-2 { 
+    font-family: 'Staatliches', cursive;
+    font-size: 30px;
+    width: 100%;
+    border-bottom: 2px solid rgb(178, 226, 219);
+}
+
+.admin-home .course-container {
+    padding: 10px 30px;
+    border-bottom: 2px solid white;
+}
+
+.admin-home .admin-label {
+    font-weight: bold;
+    margin: 5px 0;
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid white;
+}
+.admin-home .detail-row {
+    width: 100%;
+    text-align: right;
+    margin-bottom: 5px; 
 }

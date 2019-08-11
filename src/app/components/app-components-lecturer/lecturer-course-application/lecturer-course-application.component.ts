@@ -3,6 +3,9 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UserTutor } from 'src/app/models/userTutor';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/core/auth.service';
+import { Application } from 'src/app/models/application';
 
 @Component({
   selector: 'app-lecturer-course-application',
@@ -11,17 +14,25 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class LecturerCourseApplicationComponent implements OnInit {
 
-  application = this.data.application;
+  user: User;
+  application: Application = this.data.application;
   tutor: UserTutor;
   runOnce = 0;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fbSrv: FirebaseService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private authSrv: AuthService
   ) { }
 
   ngOnInit() {
+    this.authSrv.getCurrentUser().subscribe(
+      response => {
+        this.user = response;
+      }
+    )
+
     this.fbSrv.searchTutor(this.data.application.email);
     this.fbSrv.getTutor().subscribe(
       response => {
@@ -53,7 +64,7 @@ export class LecturerCourseApplicationComponent implements OnInit {
         duration: 3000
       });
     } else {
-      this.fbSrv.updateInterview(this.application.email, this.application.course, update);
+      this.fbSrv.updateInterview(this.application.email, this.application.course, update, this.user.name);
     }
   }
 
@@ -73,6 +84,10 @@ export class LecturerCourseApplicationComponent implements OnInit {
 
   updateStatus(status: string) {
     this.fbSrv.updateApplicationStatus(this.application.email, this.application.course, status);
+    this.fbSrv.notify(
+      this.tutor.email,
+      this.user.name + " has " + status + " your application for " + this.application.course + "."
+    );
   }
 }
  
