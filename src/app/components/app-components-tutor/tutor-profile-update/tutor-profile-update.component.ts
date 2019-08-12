@@ -46,7 +46,6 @@ export class TutorProfileUpdateComponent implements OnInit {
   ) { 
     if (this.router.getCurrentNavigation()) {
       this.user = this.router.getCurrentNavigation().extras.state.user;
-      console.log(this.user)
       this.tutor = this.router.getCurrentNavigation().extras.state.tutor;
     }
   }
@@ -55,7 +54,6 @@ export class TutorProfileUpdateComponent implements OnInit {
   }
 
   updateProfile(pw: string, dob: string, mob: string, add: string, deg: string, yoc: string, uoc: string, wam: string) {
-    console.log(pw, dob, mob, add, deg, yoc, uoc, wam)
     if (pw.length < 6) {
       this.snackBar.open('Please enter a password at least 6 characters long.', '', {
         verticalPosition: 'top',
@@ -99,6 +97,7 @@ export class TutorProfileUpdateComponent implements OnInit {
       }
       this.fbSrv.updateTutorProfile(tutor);
       this.authSrv.updatePassword(pw);
+      this.router.navigate(['/trout/profile']);
     }
   }
 

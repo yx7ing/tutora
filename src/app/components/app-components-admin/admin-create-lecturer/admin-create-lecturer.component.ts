@@ -84,7 +84,6 @@ export class AdminCreateLecturerComponent implements OnInit {
         duration: 3000
       })
     }
-    console.log(name, email, password);
   }
 
   searchCourses(faculty: string) {
@@ -92,7 +91,6 @@ export class AdminCreateLecturerComponent implements OnInit {
       response => {
         this.courses = response;
         this.courseChecks = new Array(this.courses.length).fill(false);
-        console.log(this.courseChecks)
       }
     )
   }

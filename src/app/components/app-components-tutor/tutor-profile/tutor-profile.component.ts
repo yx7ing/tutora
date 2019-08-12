@@ -37,7 +37,6 @@ export class TutorProfileComponent implements OnInit {
           this.currentUser = response;
           this.fbSrv.searchTutor(response.email);
         }
-        console.log(this.currentUser);
       }
     );
 
@@ -68,7 +67,6 @@ export class TutorProfileComponent implements OnInit {
       for (let tutExp of this.currentTutor.tutorExperience) {
         var id = "tutExpDoc" + i;
         var tutExpDoc = document.getElementById(id);
-        console.log(tutExpDoc)
         if (!tutExpDoc) return;
         tutExpDoc.setAttribute("href", tutExp.document.downloadUrl);
         i++;

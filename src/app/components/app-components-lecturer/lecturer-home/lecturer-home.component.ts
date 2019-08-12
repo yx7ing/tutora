@@ -41,7 +41,6 @@ export class LecturerHomeComponent implements OnInit {
         this.lecturer = response;
         this.courses = this.lecturer.courseLinks;
         for (let i = 0; i < this.courses.length; i++) {
-          console.log(this.courses[i])
           if (this.courses[i].length) {
             this.fbSrv.linkVacancyToCourseLink(this.courses[i][0].course).subscribe(
               response => {
@@ -70,7 +69,6 @@ export class LecturerHomeComponent implements OnInit {
             );
           }
         }
-        console.log(this.courses);
         this.dataSource = new MatTableDataSource(this.courses);
       }
     )

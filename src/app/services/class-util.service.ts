@@ -27,7 +27,6 @@ export class ClassUtilService {
           course = course.replace(/ <\/tr/, '')
           coursesParsed.push(course);
         }
-        console.log(coursesParsed)
       }
     )
   }
@@ -38,7 +37,6 @@ export class ClassUtilService {
     this.http.get('https://cors-anywhere.herokuapp.com/http://classutil.unsw.edu.au/' +
     faculty.toUpperCase() + '_' + term + '.html', { responseType: 'text' }).subscribe(
       response => {
-        console.log(response);
         var responseArray = response.match(/<a name=\"[A-Z]{4}.*?<\/td><\/tr>/gs);
         var courses = []
         for (let course of responseArray) {
@@ -52,7 +50,6 @@ export class ClassUtilService {
           courses.push(course);
         }
         coursesParsed.next(courses);
-        console.log(courses);
         if (courses.length > 0) {
           this.searchState.next("found");
         } else {
@@ -95,7 +92,6 @@ export class ClassUtilService {
           }
         }
         classesParsed.next(classModels);
-        console.log(classModels);
       }
     );
     return classesParsed;

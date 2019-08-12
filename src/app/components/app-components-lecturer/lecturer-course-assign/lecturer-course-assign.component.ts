@@ -52,7 +52,6 @@ export class LecturerCourseAssignComponent implements OnInit {
       this.selectedRowIndex = index;
       this.selectedApplication = application;
     }
-    console.log(this.selectedApplication);
   }
 
   assign(){
