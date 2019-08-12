@@ -28,6 +28,7 @@
             <td class="focus-window">
                 <div class="header-2">
                     Courses
+                    <button [ngClass]="selectedRowIndex>-1 ? 'btn-edit' : 'btn-edit-disabled'" (click)="edit()"><i class="fas fa-edit"></i>&nbsp;EDIT COURSES</button>
                 </div>
                 <div *ngIf="selectedRowIndex>-1">
                     <div *ngFor="let course of lecturers[selectedRowIndex].courseLinks" class="course-container">

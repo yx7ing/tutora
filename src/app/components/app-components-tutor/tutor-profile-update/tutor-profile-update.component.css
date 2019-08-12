@@ -1,22 +1,34 @@
-.register-details {
+.tutor-profile-update {
     width: 100%;
-    height: 100%;
-    background-color: rgb(102, 212, 195);
-    text-align: center;
+    height: auto;
+    display: block;
+    position: absolute;
+    bottom:0;
+    top:0;
+    left:0;
+    right:0;
+    z-index: 0;
+    background-color: rgb(154, 212, 203);
+    padding-top: 50px;
 }
 
-.register-details *:focus {
+.tutor-profile-update .container {
+    padding: 40px 60px;
+}
+
+.tutor-profile-update *:focus {
     outline: none;
     box-shadow: 0 0 0 2pt rgb(50, 150, 200);
 }
 
-.register-details .logo {
-    padding-top: 80px;
-    font-size: 90px;
-    font-family: 'Pacifico', 'cursive';
+.tutor-profile-update .header {
+    font-family: 'Staatliches', cursive;
+    font-size: 50px;
+    width: 100%;
+    border-bottom: 2px solid rgb(178, 226, 219);
 }
 
-.register-details .register-input {
+.tutor-profile-update .register-input {
     display: block;
     margin: 30px auto;
     border: 0;
@@ -27,11 +39,11 @@
     border-radius: 100px;
     font-size: 16px;
 }
-.register-details .register-input-failed, .register-input-password-failed {
+.tutor-profile-update .register-input-failed, .register-input-password-failed {
     box-shadow: 0 0 0 2pt rgb(255, 100, 100) !important;
 }
 
-.register-details .btn-register {
+.tutor-profile-update .btn-register {
     border: 0;
     background-color: rgb(119, 234, 219);
     color: white;
@@ -42,62 +54,26 @@
     margin-bottom: 40px;
 }
 
-.register-details .register-action {
+.tutor-profile-update .register-action {
     padding: 20px;
     width: 320px;
     margin: 0 auto;
     border-radius: 100px;
 }
-
-.register-details .register-action:hover {
+ 
+.tutor-profile-update .register-action:hover {
     background-color: rgb(110, 223, 207);
 }
 
-.register-details .message {
+.tutor-profile-update .message {
     font-size: 30px;
 }
 
-.register-details .btn-group {
+.tutor-profile-update .btn-group {
     margin-top: 30px;
 }
 
-.register-details .btn-skip, .btn-continue, .btn-save {
-    border: 0;
-    background-color: rgb(119, 234, 219);
-    color: white;
-    width: 250px;
-    height: 50px;
-    border-radius: 100px;
-    font-size: 16px;
-    margin: 20px;
-}
-
-.register-details .btn-save {
-    border: 0;
-    background-color: rgb(119, 234, 219);
-    color: white;
-    width: 250px;
-    height: 50px;
-    border-radius: 100px;
-    font-size: 16px;
-    margin: 20px;
-    margin-right: 100px;
-}
-
-.register-details .btn-save-disabled {
-    border: 0;
-    background-color: rgb(180, 180, 180);
-    color: white;
-    width: 250px;
-    height: 50px;
-    border-radius: 100px;
-    font-size: 16px;
-    margin: 20px;
-    pointer-events: none;
-    margin-right: 100px;
-}
-
-.register-details .btn-skip-2 {
+.tutor-profile-update .btn-save {
     border: 0;
     background-color: rgb(119, 234, 219);
     color: white;
@@ -106,35 +82,60 @@
     border-radius: 100px;
     font-size: 16px;
     margin: 20px;
-    margin-left: 100px;
+    margin-right: 35px;
 }
 
-.register-details .detail-table {
+.tutor-profile-update .btn-save-disabled {
+    border: 0;
+    background-color: rgb(180, 180, 180);
+    color: white;
+    width: 100px;
+    height: 50px;
+    border-radius: 100px;
+    font-size: 16px;
+    margin: 20px;
+    margin-right: 35px;
+    pointer-events: none;
+}
+
+.tutor-profile-update .btn-cancel {
+    border: 0;
+    background-color: rgb(255, 100, 100);
+    color: white;
+    width: 100px;
+    height: 50px;
+    border-radius: 100px;
+    font-size: 16px;
+    margin: 20px;
+    margin-left: 35px;
+}
+
+.tutor-profile-update .detail-table {
     margin: 0 auto;
     height: 550px;
     text-align: left;
 }
-.register-details .column-1 {
+.tutor-profile-update .column-1 {
     width: 30vw;
     height: 100%;
 }
-.register-details .column-2 {
+.tutor-profile-update .column-2 {
     width: 60vw;
     height: 100%;
 }
 
-.register-details .detail-title {
+.tutor-profile-update .detail-title {
     font-size: 30px;
     font-family: 'Staatliches', cursive;
 }
 
-.register-details .tutor-detail-wrapper {
+.tutor-profile-update .tutor-detail-wrapper {
     width: 100%;
     height: 512px;
     overflow: auto;
 }
 
-.register-details .register-input-2 {
+.tutor-profile-update .register-input-2 {
     display: block;
     margin: 10px;
     border: 0;
@@ -146,49 +147,49 @@
     font-size: 16px;
 }
 
-.register-details .detail-subtitle {
+.tutor-profile-update .detail-subtitle {
     font-size: 24px;
 }
 
-.register-details .upload-table {
+.tutor-profile-update .upload-table {
     width: 100%;
 }
-.register-details .upload-column-1 {
+.tutor-profile-update .upload-column-1 {
     width: 20%;
     border-right: 1px solid rgb(119, 234, 219);
 }
-.register-details .upload-column-2 {
+.tutor-profile-update .upload-column-2 {
     width: 80%;
 }
 
-.register-details .add-te {
+.tutor-profile-update .add-te {
     width: 100%;
     text-align: center;
     font-size: 20px;
     padding: 10px 0;
     margin: 10px 0;
 }
-.register-details .add-te:hover {
+.tutor-profile-update .add-te:hover {
     background-color: rgb(110, 223, 207);
 }
 
-.register-details .tutoring-experience {
+.tutor-profile-update .tutoring-experience {
     border-bottom: 2px solid rgb(119, 234, 219);
     border-top: 2px solid rgb(119, 234, 219);
     width: 100%;
     padding: 10px 0;
 }
 
-.register-details .right-column-table {
+.tutor-profile-update .right-column-table {
     height: 100%;
 
 }
 
-.register-details .right-column-table td{
+.tutor-profile-update .right-column-table td{
     padding: 5px 20px;
 }
 
-.register-details .btn-remove {
+.tutor-profile-update .btn-remove {
     border: 0;
     background-color: rgb(255, 100, 100);
     color: white;
@@ -198,11 +199,11 @@
     font-size: 16px;
     float: right;
 }
-.register-details .btn-remove:hover {
+.tutor-profile-update .btn-remove:hover {
     background-color: rgb(255, 133, 133);
 }
 
-.register-details .btn-container {
+.tutor-profile-update .btn-container {
     width: 100%;
     display: flex;
     flex-direction: row;

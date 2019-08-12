@@ -1,38 +1,24 @@
-<div class="register-details">
-    <div class="container" *ngIf="detailsStep==1">
-        <div class="logo">Tutora</div>
-        <div class="message">
-            Welcome to Tutora, soon-to-be tutor!<br><br>
-            You can fill out your personal and tutor<br>
-            details now, or later from your profile,<br>
-            but you will not be able to apply for<br>
-            tutor positions until you do so.<br>
-        </div>
-        <div class="btn-group">
-            <button class="btn-skip" routerLink="/login">DO IT LATER</button>
-            <button class="btn-continue" (click)="detailsStep=2">DO IT NOW</button>
-        </div>
-    </div>
-
-    <div class="container" *ngIf="detailsStep==2">
-        <div class="logo">Tutora</div>
-        <table class="detail-table">
+<div class="tutor-profile-update">
+    <div class="container">
+        <div class="header">Edit Profile</div>
+        <table class="detail-table" [hidden]="!user">
             <tr>
                 <td class="column-1" valign="top">
                     <div class="detail-title">Personal Details</div>
-                    <input onfocus="(this.type='date')" class="register-input-2" placeholder="Date of birth" #dob>
-                    <input type="number" class="register-input-2" placeholder="Mobile" #mob>
-                    <input type="text" class="register-input-2" placeholder="Address" #add>
+                    <input type="text" class="register-input-2" placeholder="Password" #pw>
+                    <input onfocus="(this.type='date')" class="register-input-2" placeholder="Date of birth" #dob value="{{tutor.dob}}">
+                    <input type="number" class="register-input-2" placeholder="Mobile" #mob value="{{tutor.mobile}}">
+                    <input type="text" class="register-input-2" placeholder="Address" #add value="{{tutor.address}}">
                     <div class="detail-title">Course Details</div>
-                    <input type="text" class="register-input-2" placeholder="Degree" #deg>
-                    <input type="number" class="register-input-2" placeholder="Expected year of completion" #yoc>
-                    <input type="number" class="register-input-2" placeholder="UOC completed" #uoc>
-                    <input type="number" class="register-input-2" placeholder="Weighted average mark (WAM)" #wam>
+                    <input type="text" class="register-input-2" placeholder="Degree" #deg value="{{tutor.degree}}">
+                    <input type="number" class="register-input-2" placeholder="Expected year of completion" #yoc value="{{tutor.yoc}}">
+                    <input type="number" class="register-input-2" placeholder="UOC completed" #uoc value="{{tutor.uoc}}">
+                    <input type="number" class="register-input-2" placeholder="Weighted average mark (WAM)" #wam value="{{tutor.wam}}">
                 </td>
                 <td class="column-2" valign="top">
                     <div class="detail-title">Tutor Details</div>
                     <div class="tutor-detail-wrapper">
-                        <div class="detail-subtitle">Curriculum Vitae</div>
+                        <div class="detail-subtitle">Update Curriculum Vitae</div>
                         To upload files, please ensure they are in PDF format, then rename the extension to PNG, i.e. 'document.pdf' &rarr; 'document.png'. 
                         If you cannot see file extensions, go to 'Start Menu', 'File explorer options', 
                         'View' tab and untick "Hide extensions for known file types".<br><br>
@@ -41,8 +27,8 @@
                             <td class="upload-column-2" valign="top"><upload uploadType="cv"></upload></td>
                         </tr> </table>
                         <br>
-                        <div class="detail-subtitle">Tutoring Experience (optional)</div>
-                        <span style="color:white">Please submit details of each course you have tutored in the past.<br><br></span>
+                        <div class="detail-subtitle">Add Tutoring Experience</div>
+                        <span style="color:white">Please add details of courses you have since tutored.<br><br></span>
                         <table class="tutoring-experience" *ngFor="let tutExp of tutExps; let i = index;"> <tr>
                             <td valign="top">
                                 <input type="text" class="register-input-2" placeholder="Course Code" [(ngModel)]="tutExps[i].course">
@@ -71,8 +57,9 @@
             </tr>
         </table>
         <div class="btn-container">
-            <button class="btn-skip-2" routerLink="">SKIP</button>
-            <button [ngClass]="activeUploads==0 ? 'btn-save' : 'btn-save-disabled'" (click)="saveDetails(dob.value, mob.value, add.value, deg.value, yoc.value, uoc.value, wam.value)">SAVE DETAILS</button>
+            <button class="btn-cancel" routerLink="/trout/profile">CANCEL</button>
+            <!-- <button [ngClass]="activeUploads==0 ? 'btn-save' : 'btn-save-disabled'" (click)="updateProfile()">SAVE</button> -->
+            <button class="btn-save" (click)="updateProfile(pw.value, dob.value, mob.value, add.value, deg.value, yoc.value, uoc.value, wam.value)">SAVE</button>
         </div>
     </div>
 </div>

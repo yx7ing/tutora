@@ -42,7 +42,7 @@ export class LecturerCourseApplicationComponent implements OnInit {
           cv.setAttribute("href", this.tutor.cv.downloadUrl);
         }
         if (this.tutor.tutorExperience.length > 0) {
-          setInterval(this.increment.bind(this), 1);
+          setInterval(this.increment.bind(this), 10);
         }
       }
     );
@@ -78,8 +78,8 @@ export class LecturerCourseApplicationComponent implements OnInit {
         tutExpDoc.setAttribute("href", tutExp.document.downloadUrl);
         i++;
       }
+      this.runOnce++;
     }
-    this.runOnce++;
   }
 
   updateStatus(status: string) {

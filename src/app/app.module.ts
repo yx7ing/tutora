@@ -55,6 +55,8 @@ import { TutorApplyApplicationComponent } from './components/app-components-tuto
 import { LecturerCourseApplicationComponent } from './components/app-components-lecturer/lecturer-course-application/lecturer-course-application.component';
 import { LecturerCourseAssignComponent } from './components/app-components-lecturer/lecturer-course-assign/lecturer-course-assign.component';
 import { TutorNotificationsComponent } from './components/app-components-tutor/tutor-notifications/tutor-notifications.component';
+import { TutorProfileUpdateComponent } from './components/app-components-tutor/tutor-profile-update/tutor-profile-update.component';
+import { AdminEditComponent } from './components/app-components-admin/admin-edit/admin-edit.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -80,6 +82,7 @@ const appRoutes: Routes = [
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: 'home', component: TutorHomeComponent},
       {path: 'profile', component: TutorProfileComponent},
+      {path: 'profile-update', component: TutorProfileUpdateComponent},
       {path: 'apply', component: TutorApplyComponent},
       {path: 'notif', component: TutorNotificationsComponent}
    ]
@@ -109,7 +112,9 @@ const appRoutes: Routes = [
     TutorApplyApplicationComponent,
     LecturerCourseApplicationComponent,
     LecturerCourseAssignComponent,
-    TutorNotificationsComponent
+    TutorNotificationsComponent,
+    TutorProfileUpdateComponent,
+    AdminEditComponent
   ],
   imports: [
     BrowserModule,
@@ -145,7 +150,8 @@ const appRoutes: Routes = [
     AdminCreateLecturerComponent,
     TutorApplyApplicationComponent,
     LecturerCourseApplicationComponent,
-    LecturerCourseAssignComponent
+    LecturerCourseAssignComponent,
+    AdminEditComponent
   ],
   bootstrap: [AppComponent]
 })
