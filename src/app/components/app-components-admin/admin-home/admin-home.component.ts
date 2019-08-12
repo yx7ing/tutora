@@ -6,6 +6,7 @@ import { AdminCreateLecturerComponent } from '../admin-create-lecturer/admin-cre
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UserLecturer } from 'src/app/models/userLecturer';
 import { MatTableDataSource } from '@angular/material/table';
+import { AdminEditComponent } from '../admin-edit/admin-edit.component';
 
 @Component({
   selector: 'app-admin-home',
@@ -38,12 +39,12 @@ export class AdminHomeComponent implements OnInit {
   }
 
   openCreateLecturerDialog() {
-    const dialogRef = this.dialog.open(AdminCreateLecturerComponent, {
+    this.dialog.open(AdminCreateLecturerComponent, {
       width: '30vw',
       position: {
         top: '60px'
       }
-    })
+    });
   }
 
   applyFilter(filterValue: string) {
@@ -53,6 +54,18 @@ export class AdminHomeComponent implements OnInit {
 
   highlight(index){
     this.selectedRowIndex = index;
+  }
+
+  edit() {
+    this.dialog.open(AdminEditComponent, {
+      width: '30vw',
+      position: {
+        top: '60px'
+      },
+      data: {
+        lecturer: this.lecturers[this.selectedRowIndex]
+      }
+    });
   }
 
 }

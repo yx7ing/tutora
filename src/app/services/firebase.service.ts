@@ -435,4 +435,53 @@ export class FirebaseService {
     }
     console.log('seen')
   }
+
+  updateTutorProfile(tutor: UserTutor) {
+    var runOnce = 0;
+    this.afs.collection('usersTutors', ref => ref
+    .where('email', '==', tutor.email))
+    .snapshotChanges().subscribe(
+      response => {
+        if(runOnce == 0) {
+          this.afs.collection('usersTutors').doc(response[0].payload.doc.id).update({
+            dob: tutor.dob,
+            mobile: tutor.mobile,
+            address: tutor.address,
+            degree: tutor.degree,
+            yoc: tutor.yoc,
+            uoc: tutor.uoc,
+            wam: tutor.wam
+          })
+          if (tutor.cv) {
+            this.afs.collection('usersTutors').doc(response[0].payload.doc.id).update({
+              cv: tutor.cv
+            });
+          }
+          if (tutor.tutorExperience.length > 0) {
+            this.afs.collection('usersTutors').doc(response[0].payload.doc.id).update({
+              tutorExperience: tutor.tutorExperience
+            });
+          }
+          runOnce++;
+        }
+      }
+    );
+  }
+
+  updateLecturer(lecturer: UserLecturer, courses: any[]) {
+    var runOnce = 0;
+    this.afs.collection('usersLecturers', ref => ref
+    .where('email', '==', lecturer.email))
+    .snapshotChanges().subscribe(
+      response => {
+        if(runOnce == 0) {
+          this.afs.collection('usersLecturers').doc(response[0].payload.doc.id).update({
+            courseLinks: courses
+          });
+          runOnce++;
+        }
+      }
+    );
+  }
+  
 }

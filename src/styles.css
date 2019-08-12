@@ -10,6 +10,10 @@ html, body {
     background-color: rgb(154, 212, 203);
 }
 
+button:hover {
+    cursor: pointer;
+}
+
 .snackbar-red {
     color: white;
     background-color: rgb(255, 100, 100);

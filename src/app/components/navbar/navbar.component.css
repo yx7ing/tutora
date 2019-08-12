@@ -37,6 +37,7 @@
 }
 .navbar .navigation-item-profile-clickable:hover {
     background-color: rgb(110, 223, 207);
+    cursor: pointer;
 }
 
 .navbar .navigation-dp {
@@ -59,6 +60,7 @@
 }
 .navbar .navigation-item:hover {
     background-color: rgb(110, 223, 207);
+    cursor: pointer;
 }
 
 .navbar .divider {

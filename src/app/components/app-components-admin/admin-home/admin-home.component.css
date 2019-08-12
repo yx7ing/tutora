@@ -112,6 +112,9 @@
     font-size: 30px;
     width: 100%;
     border-bottom: 2px solid rgb(178, 226, 219);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .admin-home .course-container {
@@ -130,4 +133,25 @@
     width: 100%;
     text-align: right;
     margin-bottom: 5px; 
+}
+
+.admin-home .btn-edit {
+    border: 0;
+    background-color: rgb(119, 234, 219);
+    color: white;
+    width: 200px;
+    height: 30px;
+    border-radius: 100px;
+    font-size: 16px;
+}
+
+.admin-home .btn-edit-disabled {
+    border: 0;
+    background-color: rgb(180, 180, 180);
+    color: white;
+    width: 200px;
+    height: 30px;
+    border-radius: 100px;
+    font-size: 16px;
+    pointer-events: none;
 }

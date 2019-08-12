@@ -96,7 +96,7 @@ export class AuthService {
           this.setCurrentUser(email);
           resolve(res);
         }, err => reject(err))
-    })
+    });
   }
 
   logout() {
@@ -108,6 +108,23 @@ export class AuthService {
       else {
         reject();
       }
+    });
+  }
+
+  updatePassword(password: string) {
+    return new Promise<any>((resolve, reject) => {
+      this.afAuth.auth.currentUser.updatePassword(password).then(
+        res => {
+          resolve(res);
+        }, err => {
+          this.snackBar.open("Could not change password. Please log out, log in and try again.", '', {
+            verticalPosition: 'top',
+            panelClass: 'snackbar-red',
+            duration: 2500
+          });
+          reject(err);
+        }
+      )
     });
   }
 

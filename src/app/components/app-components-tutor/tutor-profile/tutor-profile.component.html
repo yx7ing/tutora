@@ -2,6 +2,7 @@
     <div class="container">
         <div class="header">
             Profile
+            <button class="btn-edit" (click)="edit()"><i class="fas fa-edit"></i>&nbsp;EDIT</button>
         </div>
         <div>
             <table class="detail-table">
@@ -12,6 +13,8 @@
                         <div class="detail-row">{{currentTutor.name}}</div>
                         <label class="tutor-label">Email</label>
                         <div class="detail-row">{{currentTutor.email}}</div>
+                        <label class="tutor-label">Password</label>
+                        <div class="detail-row">********</div>
                         <label class="tutor-label">Date of Birth</label>
                         <div class="detail-row">{{currentTutor.dob}}</div>
                         <label class="tutor-label">Mobile</label>
@@ -33,12 +36,13 @@
                             <div class="detail-title">Tutor Details</div>
                             <div class="detail-subtitle">Curriculum Vitae</div>
                             <div class="detail-row">
-                                <a href="currentTutor.cv.downloadUrl">{{currentTutor.cv.fileName}}</a>
+                                For all file downloads: Right click &rarr; Save link as... &rarr; Save as type: All Files &rarr; File name: &lt;filename&gt;.pdf<br>
+                                <a id="downloadcv"><span *ngIf="currentTutor.cv">{{currentTutor.cv.fileName}}</span></a>
                             </div>
                             <div class="tutor-experience-wrapper" *ngIf="currentTutor.tutorExperience.length>0">
                                 <div class="detail-subtitle">Tutoring Experience</div>
                                 <div class="tutor-experience-inner-wrapper">
-                                    <div class="tutor-experience" *ngFor="let tutExp of currentTutor.tutorExperience">
+                                    <div class="tutor-experience" *ngFor="let tutExp of currentTutor.tutorExperience; let i = index;">
                                         <label class="tutor-label">Course</label>
                                         <div class="detail-row-2">{{tutExp.course}} - {{tutExp.courseName}}</div>
                                         <label class="tutor-label">Lecturer in Charge</label>
@@ -47,7 +51,7 @@
                                         <div class="detail-row-2">{{tutExp.taught}}</div>
                                         <label class="tutor-label">MyExperience (or equivalent) Results</label>
                                         <div class="detail-row-2">
-                                            <a href="tutExp.document.downloadUrl">{{tutExp.document.fileName}}</a>
+                                                <a id="{{'tutExpDoc' + i}}">{{tutExp.document.fileName}}</a>
                                         </div>
                                     </div>  
                                 </div>
