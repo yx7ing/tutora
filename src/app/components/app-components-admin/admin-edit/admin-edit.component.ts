@@ -40,7 +40,6 @@ export class AdminEditComponent implements OnInit {
       response => {
         this.courses = response;
         this.courseChecks = new Array(this.courses.length).fill(false);
-        console.log(this.courseChecks)
       }
     )
 

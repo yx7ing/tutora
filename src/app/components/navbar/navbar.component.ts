@@ -53,7 +53,6 @@ export class NavbarComponent implements OnInit {
           if (!notification.notification.seen) {
             this.newNotifications.push(notification);
             this.notif = true;
-            console.log(this.notif)
           } else {
             this.notif = false;
           }

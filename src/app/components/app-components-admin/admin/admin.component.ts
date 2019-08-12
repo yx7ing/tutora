@@ -25,7 +25,6 @@ export class AdminComponent implements OnInit {
             type: ""
           };
         }
-        console.log(this.currentUser);
       }
     );
   }

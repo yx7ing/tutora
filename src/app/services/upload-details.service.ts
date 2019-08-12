@@ -29,7 +29,6 @@ export class UploadDetailsService {
 
   addCVUpload(upload: Upload) {
     this.cvUploadDetails = upload;
-    console.log(this.cvUploadDetails);
   }
   getCvUpload() {
     return this.cvUploadDetails;

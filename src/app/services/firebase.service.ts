@@ -433,7 +433,6 @@ export class FirebaseService {
     for (let notification of notifications) {
       this.afs.collection('notifications').doc(notification.id).update({seen: true});
     }
-    console.log('seen')
   }
 
   updateTutorProfile(tutor: UserTutor) {
@@ -442,27 +441,37 @@ export class FirebaseService {
     .where('email', '==', tutor.email))
     .snapshotChanges().subscribe(
       response => {
-        if(runOnce == 0) {
-          this.afs.collection('usersTutors').doc(response[0].payload.doc.id).update({
-            dob: tutor.dob,
-            mobile: tutor.mobile,
-            address: tutor.address,
-            degree: tutor.degree,
-            yoc: tutor.yoc,
-            uoc: tutor.uoc,
-            wam: tutor.wam
-          })
-          if (tutor.cv) {
+        if (response.length > 0) {
+          if(runOnce == 0) {
             this.afs.collection('usersTutors').doc(response[0].payload.doc.id).update({
-              cv: tutor.cv
-            });
+              dob: tutor.dob,
+              mobile: tutor.mobile,
+              address: tutor.address,
+              degree: tutor.degree,
+              yoc: tutor.yoc,
+              uoc: tutor.uoc,
+              wam: tutor.wam
+            })
+            if (tutor.cv) {
+              this.afs.collection('usersTutors').doc(response[0].payload.doc.id).update({
+                cv: tutor.cv
+              });
+            }
+            if (tutor.tutorExperience.length > 0) {
+              this.afs.collection('usersTutors').doc(response[0].payload.doc.id).update({
+                tutorExperience: tutor.tutorExperience
+              });
+            }
+            runOnce++;
           }
-          if (tutor.tutorExperience.length > 0) {
-            this.afs.collection('usersTutors').doc(response[0].payload.doc.id).update({
-              tutorExperience: tutor.tutorExperience
-            });
+        } else {
+          if(runOnce == 0) {
+            if (!tutor.cv) {
+              tutor.cv = null;
+            }
+            this.afs.collection('usersTutors').add(tutor);
+            runOnce++;
           }
-          runOnce++;
         }
       }
     );

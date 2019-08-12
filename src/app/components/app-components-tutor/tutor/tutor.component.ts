@@ -25,7 +25,6 @@ export class TutorComponent implements OnInit {
         if (response) {
           this.currentUser = response;
         }
-        console.log(this.currentUser);
       }
     );
   }

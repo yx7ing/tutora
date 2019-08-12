@@ -25,7 +25,6 @@ export class LecturerComponent implements OnInit {
             type: ""
           };
         }
-        console.log(this.currentUser);
       }
     );
   }
