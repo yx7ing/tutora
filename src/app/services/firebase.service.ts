@@ -171,6 +171,7 @@ export class FirebaseService {
 
   submitApplicationResponse: BehaviorSubject<string> = new BehaviorSubject<string>("")
   submitApplication(application: Application) {
+    var runOnce = 0;
     this.afs.collection('applications').add(application).then(
       res => {
         this.submitApplicationResponse.next("success");
@@ -178,13 +179,18 @@ export class FirebaseService {
         this.afs.collection('usersLecturers', ref => ref
         .where('email', '==', application.lecturer)).snapshotChanges().subscribe(
           response => {
-            var lecturer = response[0].payload.doc.data() as UserLecturer;
-            var courseLinks = lecturer.courseLinks;
-            for (let courseLink of courseLinks) {
-              if (courseLink.course == application.course) {
-                courseLink.notification = true;
-                this.afs.collection('usersLecturers').doc(response[0].payload.doc.id).update({'courseLinks': courseLinks})
+            if (runOnce == 0) {
+              var lecturer = response[0].payload.doc.data() as UserLecturer;
+              var courseLinks = lecturer.courseLinks;
+              for (let courseLink of courseLinks) {
+                if (courseLink.course == application.course) {
+                  courseLink.notification = true;
+                  this.afs.collection('usersLecturers').doc(response[0].payload.doc.id).update({'courseLinks': courseLinks})
+                }
               }
+              runOnce++;
+            } else {
+              return
             }
           }
         )
@@ -244,24 +250,8 @@ export class FirebaseService {
     return this.application;
   }
 
-  seeNotification(email: string, course: string) {
-    var runOnce = 0;
-    this.afs.collection('usersLecturers', ref => ref
-    .where('email', '==', email)).snapshotChanges().subscribe(
-      response => {
-        if (runOnce == 0) {
-          var lecturer = response[0].payload.doc.data() as UserLecturer;
-          var courseLinks = lecturer.courseLinks;
-          for (let courseLink of courseLinks) {
-            if (courseLink.course == course) {
-              courseLink.notification = false;
-              this.afs.collection('usersLecturers').doc(response[0].payload.doc.id).update({'courseLinks': courseLinks});
-            }
-          }
-          runOnce++;
-        }
-      }  
-    );
+  seeNotification(id: string, courses: CourseLink[]) {
+    this.afs.collection('usersLecturers').doc(id).update({'courseLinks': courses});      
   }
 
   updateInterview(tutorEmail: string, course: string, update: string, lecturerName: string) {

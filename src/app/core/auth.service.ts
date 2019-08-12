@@ -150,16 +150,21 @@ export class AuthService {
     admin: "",
     courseLinks: []
   });
+  currentLecturerId: BehaviorSubject<string> = new BehaviorSubject<string>("");
   setCurrentLecturer(email: string) {
     this.afs.collection('usersLecturers', ref => ref.where('email', '==', email)).snapshotChanges().subscribe(
       response => {
         if (response.length > 0) {
           this.currentLecturer.next(response[0].payload.doc.data() as UserLecturer);
+          this.currentLecturerId.next(response[0].payload.doc.id);
         }
       }
     )
   }
   getCurrentLecturer() {
     return this.currentLecturer;
+  }
+  getCurrentLecturerId() {
+    return this.currentLecturerId;
   }
 }
