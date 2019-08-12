@@ -21,6 +21,7 @@ export class LecturerHomeComponent implements OnInit {
     admin: "",
     courseLinks: []
   };
+  lecturerId: string = "";
   courses: any[];
   displayedColumns: string[] = ['course', 'name', 'vacancies', 'notification'];
   dataSource;
@@ -71,12 +72,27 @@ export class LecturerHomeComponent implements OnInit {
         }
         this.dataSource = new MatTableDataSource(this.courses);
       }
+    );
+    this.authSrv.getCurrentLecturerId().subscribe(
+      response => {
+        this.lecturerId = response;
+      }
     )
   }
   
-  selectCourse(course: CourseLink) {
-    this.fbSrv.seeNotification(this.lecturer.email, course.course);
-    this.router.navigate(['/crelture/course'], {state: {course: course}});
+  selectCourse(selectedCourse: CourseLink) {
+    var tempCourses: CourseLink[] = [];
+    for (let item of this.courses) {
+      tempCourses.push(item[0]);
+    }
+    var clonedCourses = tempCourses.map(x => Object.assign({}, x));
+    for (let course of clonedCourses) {
+      if (course.course == selectedCourse.course) {
+        course.notification = false;
+      }
+    }
+    this.fbSrv.seeNotification(this.lecturerId, clonedCourses);
+    this.router.navigate(['/crelture/course'], {state: {course: selectedCourse}});
   }
 
 }
