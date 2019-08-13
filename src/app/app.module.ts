@@ -61,7 +61,7 @@ import { AdminEditComponent } from './components/app-components-admin/admin-edit
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent, canActivate: [AuthGuard]},
-  {path: 'register', component: RegisterComponent, canActivate: [AuthGuard]},
+  {path: 'register', component: RegisterComponent},
   {path: 'register-details', component: RegisterDetailsComponent},
   {path: '_', component: LoginRedirectComponent},
   {path: 'midna', component: AdminComponent,
